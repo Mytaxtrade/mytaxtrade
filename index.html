@@ -102,7 +102,28 @@
             <div class="drop-icon">⇧</div>
             <h3>Carica il report broker</h3>
             <p>Excel, CSV o PDF da Fineco, Interactive Brokers, DEGIRO, eToro.</p>
-            <button class="btn">Seleziona file</button>
+            <form action="https://formspree.io/f/mojrwgoq" method="POST" enctype="multipart/form-data">
+
+  <input 
+    type="email" 
+    name="email" 
+    placeholder="La tua email"
+    required
+    style="width:100%;padding:14px;border-radius:14px;border:1px solid #d0d5dd;margin-bottom:14px;"
+  >
+
+  <input 
+    type="file" 
+    name="report"
+    required
+    style="width:100%;padding:14px;border-radius:14px;border:1px solid #d0d5dd;margin-bottom:14px;background:white;"
+  >
+
+  <button type="submit" class="btn">
+    Carica report
+  </button>
+
+</form>
           </div>
           <div class="stats">
             <div class="stat"><strong>RW/RT</strong>Quadri fiscali</div>
