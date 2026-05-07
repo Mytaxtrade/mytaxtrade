@@ -3,214 +3,544 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MyTaxTrading.com — Quadri fiscali per trading dichiarativo</title>
+  <title>MyTaxTrading | Elaborazione fiscale per trader in regime dichiarativo</title>
+  <meta name="description" content="Carica i report del tuo broker e ricevi i dati per quadri RW e RT con riepilogo plusvalenze e minusvalenze da verificare con il tuo commercialista." />
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f6f8fb; color: #101828; line-height: 1.5; }
+    :root {
+      --bg: #f6f8fb;
+      --dark: #0f172a;
+      --text: #334155;
+      --muted: #64748b;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --card: #ffffff;
+      --border: #e2e8f0;
+      --success: #16a34a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
     a { color: inherit; text-decoration: none; }
-    .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
-    header { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.86); backdrop-filter: blur(14px); border-bottom: 1px solid #e6eaf0; }
-    .nav { height: 72px; display: flex; align-items: center; justify-content: space-between; }
-    .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 22px; }
-    .logo-mark { width: 34px; height: 34px; border-radius: 12px; background: #111827; color: white; display: grid; place-items: center; font-size: 18px; }
-    .nav-links { display: flex; gap: 28px; color: #667085; font-size: 14px; }
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 0; border-radius: 999px; padding: 14px 22px; font-weight: 700; cursor: pointer; background: #111827; color: white; box-shadow: 0 12px 30px rgba(17,24,39,.16); }
-    .btn.secondary { background: white; color: #111827; border: 1px solid #d0d5dd; box-shadow: none; }
-    .hero { padding: 92px 0 76px; }
-    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; }
-    .pill { display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; background: white; border: 1px solid #e6eaf0; border-radius: 999px; color: #475467; font-size: 14px; box-shadow: 0 8px 20px rgba(16,24,40,.05); margin-bottom: 22px; }
-    h1 { font-size: clamp(42px, 6vw, 72px); line-height: .98; letter-spacing: -0.055em; margin-bottom: 24px; }
-    .lead { font-size: 20px; color: #667085; max-width: 620px; margin-bottom: 34px; }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
-    .microcopy { margin-top: 16px; color: #98a2b3; font-size: 13px; }
-    .upload-card { background: white; border: 1px solid #edf0f5; border-radius: 34px; padding: 28px; box-shadow: 0 30px 70px rgba(16,24,40,.12); }
-    .dropzone { border: 2px dashed #cfd6e1; background: #f8fafc; border-radius: 28px; padding: 42px 28px; text-align: center; }
-    .drop-icon { width: 64px; height: 64px; margin: 0 auto 18px; border-radius: 22px; background: #111827; color: white; display: grid; place-items: center; font-size: 30px; }
-    .dropzone h3 { font-size: 24px; margin-bottom: 8px; }
-    .dropzone p { color: #667085; margin-bottom: 24px; }
-    .stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-top: 16px; }
-    .stat { background: #f8fafc; border-radius: 22px; padding: 18px; text-align: center; font-size: 14px; color: #475467; }
-    .stat strong { display: block; color: #101828; font-size: 18px; margin-bottom: 4px; }
-    section { padding: 84px 0; }
-    .white { background: white; }
-    .section-head { max-width: 720px; margin-bottom: 38px; }
-    h2 { font-size: clamp(32px, 4vw, 48px); letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 14px; }
-    .section-head p { color: #667085; font-size: 18px; }
-    .cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
-    .card { background: white; border: 1px solid #edf0f5; border-radius: 28px; padding: 28px; box-shadow: 0 12px 28px rgba(16,24,40,.05); }
-    .white .card { background: #f8fafc; }
-    .icon { width: 46px; height: 46px; border-radius: 16px; background: #111827; color: white; display: grid; place-items: center; margin-bottom: 18px; font-size: 22px; }
-    .card h3 { font-size: 21px; margin-bottom: 10px; }
-    .card p, .card li { color: #667085; }
-    .broker-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .broker { background: white; border: 1px solid #edf0f5; border-radius: 24px; padding: 22px; display: flex; align-items: center; gap: 12px; font-weight: 800; }
-    .check { width: 24px; height: 24px; border-radius: 999px; background: #dcfae6; color: #079455; display: grid; place-items: center; font-size: 15px; }
-    .two-col { display: grid; grid-template-columns: .9fr 1.1fr; gap: 48px; align-items: start; }
-    .features { display: grid; grid-template-columns: repeat(2,1fr); gap: 18px; }
-    .feature { background: #f8fafc; border-radius: 24px; padding: 22px; border: 1px solid #edf0f5; }
-    .pricing { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
-    .price { background: white; border: 1px solid #edf0f5; border-radius: 30px; padding: 30px; box-shadow: 0 16px 34px rgba(16,24,40,.06); }
-    .price.featured { background: #111827; color: white; transform: translateY(-8px); }
-    .price.featured p, .price.featured li { color: #d0d5dd; }
-    .amount { font-size: 44px; font-weight: 900; letter-spacing: -0.04em; margin: 16px 0; }
-    ul { list-style: none; display: grid; gap: 12px; margin-top: 18px; }
-    li::before { content: "✓"; color: #12b76a; font-weight: 900; margin-right: 8px; }
-    .cta { background: #111827; color: white; text-align: center; padding: 86px 0; }
-    .cta p { color: #d0d5dd; max-width: 680px; margin: 0 auto 26px; font-size: 18px; }
-    .cta .btn { background: white; color: #111827; }
-    footer { background: white; border-top: 1px solid #e6eaf0; padding: 28px 0; color: #667085; font-size: 13px; }
-    .footer-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 24px; }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    header {
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .nav {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 22px;
+      color: var(--dark);
+      letter-spacing: -0.04em;
+    }
+
+    .logo span { color: var(--primary); }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      font-size: 15px;
+      color: var(--muted);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 22px;
+      border-radius: 999px;
+      background: var(--primary);
+      color: white;
+      font-weight: 700;
+      transition: 0.2s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover { background: var(--primary-dark); transform: translateY(-1px); }
+
+    .btn.secondary {
+      background: white;
+      color: var(--dark);
+      border: 1px solid var(--border);
+    }
+
+    .hero {
+      padding: 96px 0 72px;
+      background: radial-gradient(circle at top right, #dbeafe 0, transparent 36%), var(--bg);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #dbeafe;
+      color: #1e40af;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0 0 24px;
+      font-size: clamp(42px, 6vw, 68px);
+      line-height: 0.96;
+      letter-spacing: -0.07em;
+      color: var(--dark);
+    }
+
+    .hero p {
+      font-size: 20px;
+      color: var(--text);
+      max-width: 650px;
+      margin-bottom: 32px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 22px;
+    }
+
+    .microcopy {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .hero-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
+    }
+
+    .hero-card h3 {
+      margin-top: 0;
+      color: var(--dark);
+      font-size: 22px;
+    }
+
+    .check-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 14px;
+    }
+
+    .check-list li::before {
+      content: "✓";
+      color: var(--success);
+      font-weight: 900;
+      margin-right: 10px;
+    }
+
+    section { padding: 76px 0; }
+
+    .section-title {
+      max-width: 760px;
+      margin-bottom: 36px;
+    }
+
+    .section-title h2 {
+      margin: 0 0 12px;
+      color: var(--dark);
+      font-size: clamp(30px, 4vw, 46px);
+      line-height: 1.05;
+      letter-spacing: -0.05em;
+    }
+
+    .section-title p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .step, .card, .price-card, .faq-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+    }
+
+    .step-number {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    .step h3, .card h3, .price-card h3, .faq-item h3 {
+      margin: 0 0 10px;
+      color: var(--dark);
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .brokers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .broker-pill {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: white;
+      border: 1px solid var(--border);
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .pricing {
+      background: #0f172a;
+      color: white;
+    }
+
+    .pricing .section-title h2,
+    .pricing .section-title p { color: white; }
+
+    .price-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .price-card {
+      color: var(--text);
+      position: relative;
+    }
+
+    .price-card.featured {
+      border: 2px solid var(--primary);
+      transform: translateY(-8px);
+    }
+
+    .badge {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: #dbeafe;
+      color: #1e40af;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .price {
+      font-size: 46px;
+      color: var(--dark);
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      margin: 16px 0;
+    }
+
+    .price-card .btn {
+      width: 100%;
+      margin-top: 18px;
+    }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .disclaimer {
+      background: #fff7ed;
+      border-top: 1px solid #fed7aa;
+      border-bottom: 1px solid #fed7aa;
+    }
+
+    footer {
+      padding: 36px 0;
+      background: white;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+    }
+
     @media (max-width: 900px) {
-      .nav-links { display: none; }
-      .hero-grid, .two-col { grid-template-columns: 1fr; }
-      .cards, .pricing, .features { grid-template-columns: 1fr; }
-      .stats, .broker-grid { grid-template-columns: 1fr; }
-      .hero { padding-top: 56px; }
-      .footer-grid { grid-template-columns: 1fr; }
+      .hero-grid, .steps, .grid-3, .price-grid, .faq-grid {
+        grid-template-columns: 1fr;
+      }
+      .nav-links a:not(.btn) { display: none; }
+      .price-card.featured { transform: none; }
+      .hero { padding-top: 64px; }
     }
   </style>
 </head>
 <body>
   <header>
     <div class="container nav">
-      <div class="logo"><div class="logo-mark">T</div> MyTaxTrading.com</div>
+      <a href="#" class="logo">MyTax<span>Trading</span></a>
       <nav class="nav-links">
         <a href="#come-funziona">Come funziona</a>
-        <a href="#broker">Broker</a>
-        <a href="#output">Output</a>
         <a href="#prezzi">Prezzi</a>
+        <a href="#faq">FAQ</a>
+        <a class="btn" href="#prezzi">Scegli il piano</a>
       </nav>
-      <a class="btn" href="#upload">Carica report</a>
     </div>
   </header>
 
   <main>
-    <section class="hero" id="upload">
+    <section class="hero">
       <div class="container hero-grid">
         <div>
-          <div class="pill">🔒 Elaborazione dati per regime dichiarativo</div>
+          <div class="eyebrow">Per trader e investitori in regime dichiarativo</div>
           <h1>Minus, plusvalenze e quadri fiscali dai report broker.</h1>
-          <p class="lead">Carica il report del tuo broker e ricevi i quadri RW e RT con riepilogo dei calcoli da verificare con il tuo commercialista.</p>
+          <p>Carica il report del tuo broker dopo il pagamento e ricevi i dati per quadri RW e RT con riepilogo dei calcoli da verificare con il tuo commercialista.</p>
           <div class="hero-actions">
-            <a class="btn" href="#upload">Inizia caricando il file →</a>
-            <a class="btn secondary" href="#output">Vedi cosa ricevi</a>
+            <a class="btn" href="#prezzi">Acquista il servizio</a>
+            <a class="btn secondary" href="#come-funziona">Scopri come funziona</a>
           </div>
-          <p class="microcopy">Servizio di elaborazione dati per regime dichiarativo. Non forniamo consulenza fiscale, finanziaria o legale.</p>
+          <div class="microcopy">Servizio di elaborazione dati. Non forniamo consulenza fiscale, finanziaria o legale.</div>
         </div>
-        <div class="upload-card">
-          <div class="dropzone">
-            <div class="drop-icon">⇧</div>
-            <h3>Carica il report broker</h3>
-            <p>Excel, CSV o PDF da Fineco, Interactive Brokers, DEGIRO, eToro.</p>
-            <form action="https://formspree.io/f/mojrwgoq" method="POST" enctype="multipart/form-data">
+        <div class="hero-card">
+          <h3>Cosa ricevi</h3>
+          <ul class="check-list">
+            <li>Riepilogo operazioni e risultati fiscali</li>
+            <li>Dati utili per Quadro RW</li>
+            <li>Dati utili per Quadro RT</li>
+            <li>Riepilogo plusvalenze e minusvalenze</li>
+            <li>Elaborazione entro 24h lavorative dalla ricezione dei report</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-  <input 
-    type="email" 
-    name="email" 
-    placeholder="La tua email"
-    required
-    style="width:100%;padding:14px;border-radius:14px;border:1px solid #d0d5dd;margin-bottom:14px;"
-  >
-
-  <input 
-    type="file" 
-    name="report"
-    required
-    style="width:100%;padding:14px;border-radius:14px;border:1px solid #d0d5dd;margin-bottom:14px;background:white;"
-  >
-  <input type="hidden" name="_next" value="https://mytaxtrading.com/thankyou.html">
-
-  <button type="submit" class="btn">
-    Carica report
-  </button>
-
-</form>
+    <section id="come-funziona">
+      <div class="container">
+        <div class="section-title">
+          <h2>Come funziona</h2>
+          <p>Un processo semplice: prima scegli e paghi il piano, poi carichi i report necessari per l’elaborazione.</p>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Scegli il piano</h3>
+            <p>Seleziona il servizio in base al numero di broker da elaborare.</p>
           </div>
-          <div class="stats">
-            <div class="stat"><strong>RW/RT</strong>Quadri fiscali</div>
-            <div class="stat"><strong>24h</strong>Consegna max</div>
-            <div class="stat"><strong>RW/RT</strong>Elaborazione fiscale</div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Paga online</h3>
+            <p>Completi il pagamento in modo sicuro tramite Stripe.</p>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <h3>Carica i report</h3>
+            <p>Dopo il pagamento accedi alla pagina dedicata per inviare report e dati.</p>
+          </div>
+          <div class="step">
+            <div class="step-number">4</div>
+            <h3>Ricevi il riepilogo</h3>
+            <p>Ricevi il file con i dati elaborati da verificare con il commercialista.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="white" id="come-funziona">
+    <section>
       <div class="container">
-        <div class="section-head">
-          <h2>Da report broker a dichiarazione fiscale semplificata.</h2>
-          <p>Un flusso pensato per chi opera con broker esteri e deve dichiarare autonomamente investimenti, minusvalenze e plusvalenze.</p>
+        <div class="section-title">
+          <h2>Broker supportati</h2>
+          <p>Supportiamo i principali broker usati da trader e investitori italiani. In caso di report particolari, verifichiamo la lavorabilità del file.</p>
         </div>
-        <div class="cards">
-          <div class="card"><div class="icon">1</div><h3>Carichi il file</h3><p>Importi il report annuale del broker in formato Excel, CSV o PDF.</p></div>
-          <div class="card"><div class="icon">2</div><h3>Elaboriamo i dati</h3><p>Normalizziamo operazioni, cambi, commissioni, plus/minus e dati di monitoraggio.</p></div>
-          <div class="card"><div class="icon">3</div><h3>Ricevi il report</h3><p>Ricevi via email i quadri fiscali elaborati e un riepilogo dei calcoli.</p></div>
+        <div class="brokers">
+          <span class="broker-pill">Fineco</span>
+          <span class="broker-pill">Interactive Brokers</span>
+          <span class="broker-pill">DEGIRO</span>
+          <span class="broker-pill">eToro</span>
+          <span class="broker-pill">Trade Republic</span>
+          <span class="broker-pill">Scalable Capital</span>
+          <span class="broker-pill">Trading212</span>
+          <span class="broker-pill">XTB</span>
+          <span class="broker-pill">Revolut</span>
         </div>
       </div>
     </section>
 
-    <section id="broker">
-      <div class="container two-col">
-        <div class="section-head">
-          <h2>Broker supportati.</h2>
-          <p>Partiamo dai broker più usati dagli investitori italiani in regime dichiarativo, con parser dedicati per ogni formato.</p>
+    <section>
+      <div class="container">
+        <div class="section-title">
+          <h2>Perché usarlo</h2>
+          <p>Riduci il lavoro manuale sui report broker e prepara un riepilogo ordinato da condividere con il tuo commercialista.</p>
         </div>
-        <div class="broker-grid">
-          <div class="broker"><span class="check">✓</span>Fineco</div>
-          <div class="broker"><span class="check">✓</span>Interactive Brokers</div>
-          <div class="broker"><span class="check">✓</span>DEGIRO</div>
-          <div class="broker"><span class="check">✓</span>eToro</div>
-          <div class="broker"><span class="check">✓</span>Trade Republic</div>
-          <div class="broker"><span class="check">✓</span>Scalable Capital</div>
-          <div class="broker"><span class="check">✓</span>Trading212</div>
-          <div class="broker"><span class="check">✓</span>XTB</div>
-          <div class="broker"><span class="check">✓</span>Revolut</div>
+        <div class="grid-3">
+          <div class="card">
+            <h3>Regime dichiarativo</h3>
+            <p>Pensato per chi deve dichiarare in autonomia investimenti, minusvalenze e plusvalenze.</p>
+          </div>
+          <div class="card">
+            <h3>Multi-broker</h3>
+            <p>Gestiamo report provenienti da più broker, anche in formati diversi.</p>
+          </div>
+          <div class="card">
+            <h3>Output ordinato</h3>
+            <p>Ricevi un riepilogo strutturato dei dati fiscali utili per la dichiarazione.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="white" id="output">
+    <section class="pricing" id="prezzi">
       <div class="container">
-        <div class="section-head">
-          <h2>Cosa ricevi.</h2>
-          <p>Output ordinati e leggibili per il tuo regime dichiarativo.</p>
+        <div class="section-title">
+          <h2>Scegli il piano</h2>
+          <p>Pagamento sicuro tramite Stripe. Dopo il pagamento sarai reindirizzato alla pagina per caricare i report.</p>
         </div>
-        <div class="features">
-          <div class="feature"><h3>Quadro RW</h3><p>Monitoraggio fiscale, valori iniziali/finali, giorni, IVAFE ove applicabile.</p></div>
-          <div class="feature"><h3>Quadro RT</h3><p>Plusvalenze, minusvalenze, corrispettivi, costi e minus residue.</p></div>
-          <div class="feature"><h3>Riepilogo calcoli</h3><p>Una sintesi leggibile delle operazioni elaborate e dei risultati ottenuti.</p></div>
-          <div class="feature"><h3>Controllo opzionale</h3><p>Possibilità di revisione umana per casi complessi o multi-broker.</p></div>
+        <div class="price-grid">
+          <div class="price-card">
+            <h3>1 Broker</h3>
+            <div class="price">49€</div>
+            <p>Per chi usa un solo broker nell’anno fiscale.</p>
+            <ul class="check-list">
+              <li>Elaborazione report broker</li>
+              <li>Riepilogo RW/RT</li>
+              <li>Consegna via email</li>
+            </ul>
+            <a class="btn" href="https://buy.stripe.com/5kQ5kC1Jg0VodCxcrU8og00">Paga 49€</a>
+          </div>
+
+          <div class="price-card featured">
+            <div class="badge">Più scelto</div>
+            <h3>2 Broker</h3>
+            <div class="price">79€</div>
+            <p>Per chi ha operato su due broker diversi.</p>
+            <ul class="check-list">
+              <li>Elaborazione 2 report broker</li>
+              <li>Riepilogo consolidato</li>
+              <li>Consegna via email</li>
+            </ul>
+            <a class="btn" href="https://buy.stripe.com/14AbJ01JgcE6dCx0Jc8og01">Paga 79€</a>
+          </div>
+
+          <div class="price-card">
+            <h3>3 Broker</h3>
+            <div class="price">99€</div>
+            <p>Per chi usa tre broker nell’anno fiscale.</p>
+            <ul class="check-list">
+              <li>Elaborazione 3 report broker</li>
+              <li>Riepilogo multi-broker</li>
+              <li>Consegna via email</li>
+            </ul>
+            <a class="btn" href="https://buy.stripe.com/bJeeVc1JgeMe7e92Rk8og02">Paga 99€</a>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="prezzi">
+    <section id="faq">
       <div class="container">
-        <div class="section-head" style="margin-inline:auto;text-align:center;">
-          <h2>Prezzi semplici.</h2>
-          <p>Prezzi trasparenti e semplici in base al numero di broker elaborati.</p>
+        <div class="section-title">
+          <h2>Domande frequenti</h2>
+          <p>Le risposte essenziali prima di acquistare il servizio.</p>
         </div>
-        <div class="pricing">
-          <div class="price"><h3>1 Broker</h3><div class="amount">49€</div><p>Ideale per chi utilizza un solo broker.</p><ul><li>1 broker</li><li>Quadri RW + RT</li><li>Riepilogo calcoli</li></ul></div>
-          <div class="price featured"><h3>2 Broker</h3><div class="amount">79€</div><p>Per chi utilizza più piattaforme.</p><ul><li>2 broker</li><li>Operazioni aggregate</li><li>Controllo dati avanzato</li></ul></div>
-          <div class="price"><h3>3 Broker</h3><div class="amount">99€</div><p>Per casi multi-broker più complessi.</p><ul><li>3 broker</li><li>Report consolidato</li><li>Gestione multi-anno</li></ul></div>
+        <div class="faq-grid">
+          <div class="faq-item">
+            <h3>Fornite consulenza fiscale?</h3>
+            <p>No. Il servizio consiste nell’elaborazione dei dati presenti nei report broker. I risultati devono essere verificati con il commercialista.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Quando carico i report?</h3>
+            <p>Dopo il pagamento. Stripe ti reindirizza alla pagina dedicata dove potrai inserire i dati e caricare i file.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Quanto tempo richiede l’elaborazione?</h3>
+            <p>Normalmente entro 24h lavorative dalla ricezione completa dei report e dei dati richiesti.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Posso usare più broker?</h3>
+            <p>Sì. Sono disponibili piani per 1, 2 o 3 broker. Per esigenze superiori puoi contattarci.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="cta">
+    <section class="disclaimer">
       <div class="container">
-        <h2>Semplifica il tuo regime dichiarativo.</h2>
-        <p>Carica i report dei tuoi broker e ricevi i dati fiscali elaborati in modo semplice e ordinato.</p>
-        <a class="btn" href="#upload">Carica il tuo report</a>
+        <div class="section-title">
+          <h2>Disclaimer</h2>
+          <p>MyTaxTrading è un servizio di elaborazione dati per trader e investitori in regime dichiarativo. Non forniamo consulenza fiscale, finanziaria o legale. I dati elaborati devono essere verificati con un professionista abilitato prima dell’invio della dichiarazione.</p>
+        </div>
       </div>
     </section>
   </main>
 
   <footer>
-    <div class="container footer-grid">
-      <div><strong>MyTaxTrading.com</strong><br/>Elaborazione fiscale per regime dichiarativo.</div>
-      <div>Il servizio fornisce esclusivamente elaborazione automatizzata dei dati caricati dall’utente e genera fac-simili fiscali sulla base delle informazioni ricevute. Il servizio non costituisce consulenza fiscale, finanziaria, legale o contabile. L’utente resta responsabile della verifica dei dati e dell’utilizzo degli stessi nella propria dichiarazione dei redditi.</div>
+    <div class="container footer-inner">
+      <div>© 2026 MyTaxTrading.com — Servizio di elaborazione dati fiscali</div>
+      <div class="footer-links">
+        <a href="privacy.html">Privacy</a>
+        <a href="termini.html">Termini</a>
+        <a href="mailto:info@mytaxtrading.com">Contatti</a>
+      </div>
     </div>
   </footer>
 </body>
