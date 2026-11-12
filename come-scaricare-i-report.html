@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%230256ff%22/><text x=%2250%22 y=%2265%22 font-size=%2248%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22Arial%22 font-weight=%22bold%22>MT</text></svg>">
+  <title>Come scaricare i report di Fineco, Interactive Brokers e DEGIRO | MyTaxTrading</title>
+  <meta name="description" content="Guida semplice: quali file scaricare da Fineco, Interactive Brokers e DEGIRO per la dichiarazione dei redditi, dove trovarli, in che formato e da quando sono disponibili." />
+  <link rel="canonical" href="https://mytaxtrading.com/come-scaricare-i-report.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Come scaricare i report del broker per la dichiarazione | MyTaxTrading" />
+  <meta property="og:description" content="Fineco, Interactive Brokers e DEGIRO: quali file servono, dove si trovano e quando sono disponibili." />
+  <meta property="og:url" content="https://mytaxtrading.com/come-scaricare-i-report.html" />
+  <meta property="og:locale" content="it_IT" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"Quando è disponibile il report di Interactive Brokers dell'anno precedente?","acceptedAnswer":{"@type":"Answer","text":"Il rendiconto annuale di Interactive Brokers è disponibile di norma entro il 31 gennaio. Va scaricato dal Portale clienti in formato CSV, in italiano."}},
+    {"@type":"Question","name":"Quando è disponibile il report di Fineco per il regime dichiarativo?","acceptedAnswer":{"@type":"Answer","text":"Il report fiscale di Fineco dell'anno precedente è disponibile da marzo, nella sezione Portafoglio, Report, Certificazioni fiscali. Serve la versione Excel."}},
+    {"@type":"Question","name":"Quali file DEGIRO servono per la dichiarazione?","acceptedAnswer":{"@type":"Answer","text":"Servono due file: le transazioni e l'estratto conto, esportati in Excel o CSV. Si possono scaricare subito dopo la fine dell'anno, senza aspettare il report annuale."}},
+    {"@type":"Question","name":"Posso caricare i report in PDF?","acceptedAnswer":{"@type":"Answer","text":"No: il PDF serve per leggere, non per elaborare. Servono i file in Excel o CSV, che tutti e tre i broker permettono di scaricare."}}
+  ]}</script>
+  <style>
+    :root {
+      --bg: #f6f8fb; --dark: #0f172a; --text: #334155; --muted: #64748b;
+      --primary: #2563eb; --primary-dark: #1d4ed8; --card: #ffffff; --border: #e2e8f0;
+      --success: #16a34a; --soft: #eff6ff; --warn-bg: #fff7ed; --warn: #9a3412;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; }
+    a { color: var(--primary); text-decoration: none; }
+    .container { max-width: 880px; margin: 0 auto; padding: 0 20px; }
+    header { background: rgba(255,255,255,.9); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; backdrop-filter: blur(12px); }
+    .nav { height: 68px; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-weight: 800; font-size: 22px; color: var(--dark); letter-spacing: -0.04em; }
+    .logo span { color: var(--primary); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 20px; border-radius: 999px; background: var(--primary); color: white; font-weight: 700; }
+    .btn:hover { background: var(--primary-dark); }
+    .btn.secondary { background: white; color: var(--dark); border: 1px solid var(--border); }
+
+    .intro { padding: 56px 0 24px; }
+    h1 { margin: 0 0 16px; font-size: clamp(32px, 5vw, 48px); line-height: 1.05; letter-spacing: -0.05em; color: var(--dark); }
+    .intro p { font-size: 18px; margin: 0 0 12px; }
+    h2 { color: var(--dark); letter-spacing: -0.03em; margin: 0 0 8px; font-size: 28px; }
+    h3 { color: var(--dark); margin: 24px 0 8px; font-size: 18px; }
+
+    .riassunto { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 24px 0 8px; }
+    .riassunto a { display: block; background: white; border: 1px solid var(--border); border-radius: 16px; padding: 16px 18px; color: var(--text); }
+    .riassunto a:hover { border-color: var(--primary); }
+    .riassunto b { display: block; color: var(--dark); font-size: 17px; }
+    .etichetta { display: inline-block; margin-top: 6px; padding: 2px 10px; border-radius: 999px; background: var(--soft); color: var(--primary); font-weight: 700; font-size: 13px; }
+    .quando { display: block; margin-top: 6px; font-size: 14px; color: var(--muted); }
+
+    .regole { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 24px; margin: 24px 0; }
+    .regole ul { margin: 8px 0 0; padding-left: 20px; }
+    .regole li { margin: 6px 0; }
+
+    .broker { background: white; border: 1px solid var(--border); border-radius: 20px; padding: 32px 28px; margin: 24px 0; scroll-margin-top: 84px; }
+    .broker-testa { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; justify-content: space-between; margin-bottom: 8px; }
+    .dati { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 4px; }
+    .dato { background: var(--soft); border-radius: 10px; padding: 6px 12px; font-size: 14px; }
+    .dato b { color: var(--dark); }
+    ol.passi { counter-reset: passo; list-style: none; padding: 0; margin: 16px 0 0; }
+    ol.passi li { counter-increment: passo; position: relative; padding: 4px 0 14px 44px; }
+    ol.passi li::before { content: counter(passo); position: absolute; left: 0; top: 2px; width: 30px; height: 30px; border-radius: 50%; background: var(--primary); color: white; font-weight: 800; font-size: 14px; display: flex; align-items: center; justify-content: center; }
+    .menu { font-weight: 700; color: var(--dark); }
+    .attenzione { background: var(--warn-bg); border-radius: 12px; padding: 14px 18px; margin-top: 8px; font-size: 15px; }
+    .attenzione b { color: var(--warn); }
+
+    .aiuto { text-align: center; background: white; border: 1px solid var(--border); border-radius: 20px; padding: 36px 24px; margin: 32px 0 48px; }
+    .aiuto p { max-width: 580px; margin: 8px auto 20px; }
+    .azioni { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    footer { border-top: 1px solid var(--border); padding: 28px 0; color: var(--muted); font-size: 14px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .footer-links { display: flex; gap: 18px; }
+    .footer-links a { color: var(--muted); }
+
+    @media (max-width: 720px) {
+      .riassunto { grid-template-columns: 1fr; }
+      .broker { padding: 24px 18px; }
+      .nav .btn { padding: 10px 14px; font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="index.html" class="logo">MyTax<span>Trading</span></a>
+      <a class="btn" href="index.html#prezzi">Scegli il piano</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="intro">
+      <h1>Come scaricare i report del tuo broker</h1>
+      <p>Per compilare i quadri RT e RW servono i file con le operazioni che il broker mette a disposizione nella tua area clienti. Qui trovi, per ogni broker, cosa scaricare, dove si trova e da quando è disponibile.</p>
+      <div class="riassunto">
+        <a href="#fineco"><b>Fineco</b><span class="etichetta">Excel</span><span class="quando">Disponibile da marzo</span></a>
+        <a href="#interactive-brokers"><b>Interactive Brokers</b><span class="etichetta">CSV</span><span class="quando">Disponibile entro il 31 gennaio</span></a>
+        <a href="#degiro"><b>DEGIRO</b><span class="etichetta">Excel o CSV</span><span class="quando">Disponibile da inizio gennaio</span></a>
+      </div>
+    </section>
+
+    <section class="regole">
+      <h2>Tre regole valide per tutti</h2>
+      <ul>
+        <li><b>Excel o CSV, non PDF.</b> Il PDF è fatto per essere letto da una persona, non per essere elaborato: scegli sempre l'esportazione in Excel o CSV.</li>
+        <li><b>Tutti gli anni, non solo l'ultimo.</b> Se vendi titoli comprati negli anni precedenti, serve anche il prezzo di acquisto: carica i report di tutti gli anni in cui sei in regime dichiarativo con quel broker.</li>
+        <li><b>Usa il sito dal computer.</b> Le app dei broker spesso non permettono di esportare i file: accedi all'area clienti dal browser.</li>
+      </ul>
+    </section>
+
+    <section class="broker" id="fineco">
+      <div class="broker-testa"><h2>Fineco</h2></div>
+      <div class="dati">
+        <span class="dato">Formato: <b>Excel</b></span>
+        <span class="dato">Disponibile: <b>da marzo</b> dell'anno successivo</span>
+        <span class="dato">File da caricare: <b>uno per anno</b></span>
+      </div>
+      <ol class="passi">
+        <li>Accedi a <b>finecobank.com</b> dal computer con le tue credenziali.</li>
+        <li>Apri <span class="menu">Portafoglio</span> → <span class="menu">Report</span> → <span class="menu">Certificazioni fiscali</span>.</li>
+        <li>Scegli l'anno fiscale e premi <span class="menu">Cerca</span>.</li>
+        <li>Scarica il report in <b>Excel</b>. Ripeti per ogni anno in cui sei in regime dichiarativo.</li>
+      </ol>
+      <div class="attenzione"><b>Attenzione:</b> prima di marzo il report dell'anno appena chiuso di solito non c'è ancora. Se l'anno non compare, riprova più avanti.</div>
+    </section>
+
+    <section class="broker" id="interactive-brokers">
+      <div class="broker-testa"><h2>Interactive Brokers</h2></div>
+      <div class="dati">
+        <span class="dato">Formato: <b>CSV</b>, in <b>italiano</b></span>
+        <span class="dato">Disponibile: <b>entro il 31 gennaio</b></span>
+        <span class="dato">File da caricare: <b>uno per anno</b></span>
+      </div>
+      <ol class="passi">
+        <li>Accedi al <b>Portale clienti</b> dal sito di Interactive Brokers (non dall'app TWS o dall'app per telefono).</li>
+        <li>Apri <span class="menu">Report</span> (o <span class="menu">Performance e report</span>) → <span class="menu">Rendiconti</span>.</li>
+        <li>Nella riga <span class="menu">Attività</span> scegli il periodo <b>Annuale</b> e l'anno da dichiarare.</li>
+        <li>Imposta il formato <b>CSV</b> e la lingua <b>Italiano</b>, poi scarica il file. Ripeti per ogni anno.</li>
+      </ol>
+      <div class="attenzione"><b>Errori tipici:</b> file in PDF o HTML, lingua inglese, periodo mensile invece che annuale. Se hai chiuso e riaperto il conto, scarica i rendiconti di entrambi i conti.</div>
+    </section>
+
+    <section class="broker" id="degiro">
+      <div class="broker-testa"><h2>DEGIRO</h2></div>
+      <div class="dati">
+        <span class="dato">Formato: <b>Excel o CSV</b></span>
+        <span class="dato">Disponibile: <b>da inizio gennaio</b>, senza aspettare il report annuale</span>
+        <span class="dato">File da caricare: <b>due</b></span>
+      </div>
+      <ol class="passi">
+        <li>Accedi a DEGIRO dal computer e apri la sezione delle tue <span class="menu">Attività</span>.</li>
+        <li>Apri le <span class="menu">Transazioni</span>: come data di inizio metti un giorno <b>prima del tuo primo acquisto</b>, come data di fine il 31 dicembre dell'anno da dichiarare.</li>
+        <li>Premi <span class="menu">Esporta</span> e scegli <b>Excel o CSV</b>.</li>
+        <li>Fai lo stesso con l'<span class="menu">Estratto conto</span>, con le stesse date, e carica <b>entrambi i file</b>.</li>
+      </ol>
+      <div class="attenzione"><b>Attenzione:</b> DEGIRO mostra in automatico solo un periodo breve. Se non cambi le date, il file non contiene le operazioni più vecchie e il calcolo risulta sbagliato.</div>
+    </section>
+
+    <section class="aiuto">
+      <h2>Non trovi il file?</h2>
+      <p>I menu dei broker cambiano nel tempo. Puoi chiedere al servizio clienti del tuo broker <b>«l'esportazione delle operazioni dell'anno in formato Excel o CSV»</b>, oppure scriverci: ti aiutiamo a trovarlo. Non inviarci i report via email: basta il nome del broker.</p>
+      <div class="azioni">
+        <a class="btn" href="mailto:infomytaxtrading@gmail.com?subject=Aiuto%20per%20scaricare%20i%20report">Scrivici</a>
+        <a class="btn secondary" href="index.html#prezzi">Vedi i prezzi</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>© 2026 MyTaxTrading.com</div>
+      <div class="footer-links">
+        <a href="index.html">Homepage</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="termini.html">Termini</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
