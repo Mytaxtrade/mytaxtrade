@@ -265,6 +265,17 @@
     .numeri b { display: block; font-size: 20px; color: var(--dark); }
     details { border: 1px solid var(--border); border-radius: 18px; padding: 16px 18px; }
     summary { font-weight: 700; color: var(--dark); cursor: pointer; }
+    .esito.lavoro { display: block; border: 1px solid var(--border); background: #fff; border-radius: 22px; padding: 22px; }
+    .passi-lavoro { list-style: none; padding: 0; margin: 12px 0 0; }
+    .passi-lavoro li { display: flex; align-items: center; gap: 12px; padding: 7px 0; color: #94a3b8; transition: color .3s; }
+    .passi-lavoro li .pallino { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #cbd5e1; flex: none; display: flex; align-items: center; justify-content: center; font-size: 13px; color: white; transition: all .3s; }
+    .passi-lavoro li.corrente { color: var(--dark); font-weight: 700; }
+    .passi-lavoro li.corrente .pallino { border-color: var(--primary); border-top-color: transparent; animation: gira .8s linear infinite; }
+    .passi-lavoro li.fatto { color: var(--dark); }
+    .passi-lavoro li.fatto .pallino { background: #16a34a; border-color: #16a34a; animation: none; }
+    .passi-lavoro li.fatto .pallino::after { content: "\2713"; }
+    @keyframes gira { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .passi-lavoro li.corrente .pallino { animation: none; } }
     .btn[disabled] { opacity: .55; cursor: wait; transform: none; }
     .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 12px; }
 
@@ -306,7 +317,7 @@
             </div>
             <div>
               <label>Report accettati</label>
-              <span class="hint"><b>Fineco</b>: report "Tassazione dei redditi diversi" in Excel.<br><b>Interactive Brokers</b>: rendiconto di attività annuale in CSV, in italiano.<br><b>DEGIRO</b>: file "Transazioni" ed "Estratto conto" (Excel o CSV).</span>
+              <span class="hint"><b>Fineco</b>: Excel.<br><b>Interactive Brokers</b>: CSV, in italiano.<br><b>DEGIRO</b>: Excel o CSV (operazioni ed estratto conto).<br><a href="come-scaricare-i-report.html" target="_blank" style="color:var(--primary);font-weight:700">Come scaricarli &rarr;</a></span>
             </div>
           </div>
 
@@ -366,6 +377,24 @@
     function euro(v) { return (v || 0).toLocaleString("it-IT", { maximumFractionDigits: 0 }) + " €"; }
     function mostra(classe, html) { esito.className = "esito " + classe; esito.innerHTML = html; }
     const AIUTO = "<p class='hint'>Hai un dubbio? <a href='mailto:infomytaxtrading@gmail.com?subject=Aiuto%20MyTaxTrading'>Scrivici</a>: ti risponde una persona.</p>";
+    const PASSI = ["Lettura dei report del broker", "Calcolo dei quadri RT e RW", "Preparazione del documento PDF"];
+    const attesa = ms => new Promise(r => setTimeout(r, ms));
+    async function mostraLavoro(lavoro) {
+      // passaggi reali dell'elaborazione; durata minima di circa 4 secondi, poi si attende la risposta del motore
+      mostra("lavoro", "<h3>Elaborazione in corso</h3><ul class='passi-lavoro'>" +
+        PASSI.map(p => "<li><span class='pallino'></span>" + p + "</li>").join("") + "</ul>");
+      const voci = esito.querySelectorAll(".passi-lavoro li");
+      for (let i = 0; i < voci.length; i++) {
+        voci[i].className = "corrente";
+        if (i < voci.length - 1) await attesa(1300);
+        else {
+          const fine = await Promise.all([lavoro, attesa(1300)]).then(x => x[0]).catch(() => null);
+          if (!fine || !fine.r.ok) return;            // errore: niente spunta sull'ultimo passaggio
+        }
+        voci[i].className = "fatto";
+      }
+      await attesa(400);
+    }
     function testo(t) { const d = document.createElement("div"); d.textContent = t; return d.innerHTML; }
 
     if (!sessione.startsWith("cs_")) {
@@ -382,8 +411,9 @@
       dati.append("session_id", sessione);
       bottone.disabled = true; bottone.textContent = "Elaborazione in corso...";
       try {
-        const r = await fetch(API, { method: "POST", body: dati });
-        const j = await r.json();
+        const richiesta = fetch(API, { method: "POST", body: dati }).then(async r => ({ r, j: await r.json() }));
+        await mostraLavoro(richiesta);
+        const { r, j } = await richiesta;
         if (!r.ok) { mostra("ko", "<h3>Non è stato possibile elaborare i file</h3>" + testo(j.errore || "Errore") + AIUTO); return; }
         const pdf = Uint8Array.from(atob(j.pdf), c => c.charCodeAt(0));
         const url = URL.createObjectURL(new Blob([pdf], { type: "application/pdf" }));
