@@ -6,7 +6,8 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%230256ff%22/><text x=%2250%22 y=%2265%22 font-size=%2248%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22Arial%22 font-weight=%22bold%22>MT</text></svg>">
   <link rel="icon" type="image/png" href="favicon.png">
   <title>Carica report | MyTaxTrading</title>
-  <meta name="description" content="Carica i report broker necessari per l'elaborazione fiscale MyTaxTrading." />
+  <meta name="description" content="Carica i report del broker e scarica subito i quadri RT e RW compilati." />
+  <meta name="robots" content="noindex" />
   <style>
     :root {
       --bg: #f6f8fb;
@@ -254,9 +255,22 @@
       gap: 16px;
     }
 
+    .esito { margin-top: 24px; display: none; }
+    .esito.ok { display: block; border: 1px solid #bbf7d0; background: #f0fdf4; border-radius: 22px; padding: 22px; }
+    .esito.ko { display: block; border: 1px solid #fecaca; background: #fef2f2; border-radius: 22px; padding: 22px; color: #7f1d1d; }
+    .esito h3 { margin: 0 0 8px; color: var(--dark); }
+    .avvisi { margin: 10px 0 0; padding-left: 18px; font-size: 14px; }
+    .numeri { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 12px 0; }
+    .numeri div { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 10px 12px; }
+    .numeri b { display: block; font-size: 20px; color: var(--dark); }
+    details { border: 1px solid var(--border); border-radius: 18px; padding: 16px 18px; }
+    summary { font-weight: 700; color: var(--dark); cursor: pointer; }
+    .btn[disabled] { opacity: .55; cursor: wait; transform: none; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 12px; }
+
     @media (max-width: 760px) {
       main { padding: 42px 0; }
-      .grid-2, .checkbox-grid { grid-template-columns: 1fr; }
+      .grid-2, .checkbox-grid, .numeri, .grid-4 { grid-template-columns: 1fr; }
       .card { padding: 24px; }
     }
   </style>
@@ -273,84 +287,59 @@
       <section class="hero">
         <div class="eyebrow">Pagamento completato</div>
         <h1>Carica i report del broker</h1>
-        <p>Inserisci i dati richiesti e allega i report necessari per l’elaborazione fiscale. Riceverai il riepilogo via email dopo la lavorazione.</p>
+        <p>Allega i report dell'anno e scarica subito il documento con i quadri RT e RW compilati, da consegnare al tuo CAF o commercialista.</p>
       </section>
 
-      <div class="notice">
-        <strong>Importante:</strong> questa pagina è riservata agli utenti che hanno già completato il pagamento. Carica report completi e leggibili per evitare ritardi nell’elaborazione.
+      <div class="notice" id="avviso-link">
+        <strong>Privacy:</strong> i report vengono elaborati e cancellati subito, non li conserviamo. Non ti chiediamo nome né codice fiscale: il documento esce con il codice fiscale vuoto, lo completi tu.
       </div>
 
       <section class="card">
-        <form action="https://formspree.io/f/mojrwgoq" method="POST" enctype="multipart/form-data">
+        <form id="modulo" enctype="multipart/form-data">
           <div class="grid-2">
             <div>
-              <label for="nome">Nome e cognome *</label>
-              <input type="text" id="nome" name="nome" required autocomplete="name" />
-            </div>
-            <div>
-              <label for="email">Email *</label>
-              <input type="email" id="email" name="email" required autocomplete="email" />
-            </div>
-          </div>
-
-          <div class="grid-2">
-            <div>
-              <label for="codice_fiscale">Codice fiscale *</label>
-              <input type="text" id="codice_fiscale" name="codice_fiscale" required placeholder="RSSMRA80A01H501U" />
-            </div>
-            <div>
-              <label for="anno_fiscale">Anno fiscale *</label>
-              <select id="anno_fiscale" name="anno_fiscale" required>
-                <option value="">Seleziona anno</option>
-                <option value="2025">2025</option>
-                <option value="2024">2024</option>
-                <option value="2023">2023</option>
-                <option value="2022">2022</option>
+              <label for="anno">Anno d'imposta *</label>
+              <select id="anno" name="anno" required>
+                <option value="2025">2025 (dichiarazione 2026)</option>
               </select>
+              <span class="hint">I modelli ufficiali per i redditi 2026 saranno disponibili nella primavera 2027.</span>
             </div>
-          </div>
-
-          <div>
-            <label>Broker utilizzati *</label>
-            <span class="hint">Seleziona uno o più broker inclusi nel piano acquistato.</span>
-            <div class="checkbox-grid">
-              <label class="checkbox-item"><input type="checkbox" name="broker" value="Fineco" /> Fineco</label>
-              <label class="checkbox-item"><input type="checkbox" name="broker" value="Interactive Brokers" /> Interactive Brokers</label>
-              <label class="checkbox-item"><input type="checkbox" name="broker" value="DEGIRO" /> DEGIRO</label>
-              <label class="checkbox-item"><input type="checkbox" name="broker" value="eToro" /> eToro</label>
-              <label class="checkbox-item"><input type="checkbox" name="broker" value="Trade Republic" /> Trade Republic</label>
-              <label class="checkbox-item"><input type="checkbox" name="broker" value="Scalable Capital" /> Scalable Capital</label>
-              <label class="checkbox-item"><input type="checkbox" name="broker" value="Trading212" /> Trading212</label>
-              <label class="checkbox-item"><input type="checkbox" name="broker" value="XTB" /> XTB</label>
-              <label class="checkbox-item"><input type="checkbox" name="broker" value="Revolut" /> Revolut</label>
+            <div>
+              <label>Report accettati</label>
+              <span class="hint"><b>Fineco</b>: report "Tassazione dei redditi diversi" in Excel.<br><b>Interactive Brokers</b>: rendiconto di attività annuale in CSV, in italiano.<br><b>DEGIRO</b>: file "Transazioni" ed "Estratto conto" (Excel o CSV).</span>
             </div>
           </div>
 
           <div class="file-box">
-            <label for="report">Carica report broker *</label>
-            <input type="file" id="report" name="upload" required multiple accept=".pdf,.csv,.xlsx,.xls,.zip" />
-            <span class="hint">Formati accettati: PDF, CSV, XLS, XLSX, ZIP.</span>
+            <label for="report">Report del broker *</label>
+            <input type="file" id="report" name="file" required multiple accept=".csv,.xlsx,.xls" />
+            <span class="hint">Carica tutti i report dagli anni in cui sei in regime dichiarativo: servono per il costo dei titoli comprati negli anni precedenti. Massimo 4 MB in totale.</span>
           </div>
 
-          <div>
-            <label for="note">Note aggiuntive</label>
-            <textarea id="note" name="note" placeholder="Esempio: ho operato su più valute, ho cambiato broker durante l’anno, ho file separati per dividendi o interessi..."></textarea>
-          </div>
+          <details>
+            <summary>Minusvalenze degli anni precedenti (facoltativo)</summary>
+            <span class="hint">Se nella dichiarazione dell'anno scorso avevi minusvalenze da riportare (rigo RT102), indicale qui per anno di origine. Servono solo per gli anni di cui non carichi i report.</span>
+            <div class="grid-4">
+              <div><label for="m2021">2021</label><input id="m2021" name="minus_2021" inputmode="decimal" placeholder="0" /></div>
+              <div><label for="m2022">2022</label><input id="m2022" name="minus_2022" inputmode="decimal" placeholder="0" /></div>
+              <div><label for="m2023">2023</label><input id="m2023" name="minus_2023" inputmode="decimal" placeholder="0" /></div>
+              <div><label for="m2024">2024</label><input id="m2024" name="minus_2024" inputmode="decimal" placeholder="0" /></div>
+            </div>
+          </details>
 
           <label class="privacy-check">
-            <input type="checkbox" name="privacy" required />
-            <span>Confermo di aver letto la privacy policy e autorizzo il trattamento dei dati inviati per l’elaborazione richiesta.</span>
+            <input type="checkbox" id="consenso" required />
+            <span>Ho letto la <a href="privacy.html" style="color:var(--primary);font-weight:700">privacy policy</a> e i <a href="termini.html" style="color:var(--primary);font-weight:700">termini</a>: il documento è un calcolo di supporto da verificare, la dichiarazione resta sotto la mia responsabilità.</span>
           </label>
 
-          <input type="hidden" name="_subject" value="Nuovo report ricevuto - MyTaxTrading" />
-          <input type="hidden" name="_next" value="https://mytaxtrading.com/thankyou.html" />
-
-          <button type="submit" class="btn">Invia report</button>
+          <button type="submit" class="btn" id="invia">Elabora e scarica il documento</button>
         </form>
+
+        <div class="esito" id="esito" aria-live="polite"></div>
       </section>
 
       <div class="support">
-        Hai problemi con il caricamento? Scrivi a <a href="mailto:infomytaxtrading@gmail.com">infomytaxtrading@gmail.com</a>
+        Problemi con il caricamento? Scrivi a <a href="mailto:infomytaxtrading@gmail.com">infomytaxtrading@gmail.com</a> (non allegare i report via email).
       </div>
     </div>
   </main>
@@ -365,5 +354,54 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    // indirizzo della funzione di elaborazione (progetto Vercel del motore, server a Francoforte)
+    const API = "https://mytaxtrading-motore.vercel.app/api/elabora";
+    const sessione = new URLSearchParams(location.search).get("session_id") || "";
+    const modulo = document.getElementById("modulo");
+    const esito = document.getElementById("esito");
+    const bottone = document.getElementById("invia");
+
+    function euro(v) { return (v || 0).toLocaleString("it-IT", { maximumFractionDigits: 0 }) + " €"; }
+    function mostra(classe, html) { esito.className = "esito " + classe; esito.innerHTML = html; }
+    function testo(t) { const d = document.createElement("div"); d.textContent = t; return d.innerHTML; }
+
+    if (!sessione.startsWith("cs_")) {
+      bottone.disabled = true;
+      mostra("ko", "<h3>Link non valido</h3>Questa pagina si apre dal link che ricevi dopo il pagamento. Se hai già pagato e non lo trovi, scrivici.");
+    }
+
+    modulo.addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+      const file = document.getElementById("report").files;
+      let totale = 0; for (const f of file) totale += f.size;
+      if (totale > 4 * 1024 * 1024) { mostra("ko", "<h3>File troppo grandi</h3>Il limite è 4 MB in totale per invio."); return; }
+      const dati = new FormData(modulo);
+      dati.append("session_id", sessione);
+      bottone.disabled = true; bottone.textContent = "Elaborazione in corso...";
+      try {
+        const r = await fetch(API, { method: "POST", body: dati });
+        const j = await r.json();
+        if (!r.ok) { mostra("ko", "<h3>Non è stato possibile elaborare i file</h3>" + testo(j.errore || "Errore")); return; }
+        const pdf = Uint8Array.from(atob(j.pdf), c => c.charCodeAt(0));
+        const url = URL.createObjectURL(new Blob([pdf], { type: "application/pdf" }));
+        const nome = "mytaxtrading-quadri-" + j.riepilogo.anno + ".pdf";
+        const a = document.createElement("a"); a.href = url; a.download = nome; document.body.appendChild(a); a.click(); a.remove();
+        const minus = Object.values(j.riepilogo.minus_da_riportare || {}).reduce((s, v) => s + v, 0);
+        const avvisi = (j.avvisi || []).map(x => "<li>" + testo(x) + "</li>").join("");
+        mostra("ok", "<h3>Documento pronto</h3>" +
+          "<div class='numeri'><div>Risultato " + j.riepilogo.anno + "<b>" + euro(j.riepilogo.risultato) + "</b></div>" +
+          "<div>Imposta 26%<b>" + euro(j.riepilogo.imposta) + "</b></div><div>Minus da riportare<b>" + euro(minus) + "</b></div></div>" +
+          "<a class='btn' href='" + url + "' download='" + nome + "'>Scarica di nuovo il PDF</a>" +
+          (avvisi ? "<p><b>Da controllare:</b></p><ul class='avvisi'>" + avvisi + "</ul>" : "") +
+          "<p class='hint'>Elaborazioni ancora disponibili con questo pagamento: " + j.elaborazioni_rimaste + ".</p>");
+      } catch (e) {
+        mostra("ko", "<h3>Connessione non riuscita</h3>Riprova tra qualche minuto. Se il problema continua, scrivici.");
+      } finally {
+        bottone.disabled = !sessione.startsWith("cs_"); bottone.textContent = "Elabora e scarica il documento";
+      }
+    });
+  </script>
 </body>
 </html>

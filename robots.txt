@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /carica-report.html
+
+Sitemap: https://mytaxtrading.com/sitemap.xml
