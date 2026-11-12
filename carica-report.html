@@ -426,7 +426,7 @@
         const avvisi = (j.avvisi || []).map(x => "<li>" + testo(x) + "</li>").join("");
         mostra("ok", "<h3>Documento pronto</h3>" +
           "<div class='numeri'><div>Risultato " + j.riepilogo.anno + "<b>" + euro(j.riepilogo.risultato) + "</b></div>" +
-          "<div>Imposta 26%<b>" + euro(j.riepilogo.imposta) + "</b></div><div>Minus da riportare<b>" + euro(minus) + "</b></div></div>" +
+          "<div>Imposte da pagare<b>" + euro(j.riepilogo.imposta) + "</b></div><div>Minus da riportare<b>" + euro(minus) + "</b></div></div>" +
           "<a class='btn' href='" + url + "' download='" + nome + "'>Scarica di nuovo il PDF</a>" +
           (avvisi ? "<p><b>Da controllare:</b></p><ul class='avvisi'>" + avvisi + "</ul>" : "") +
           "<p class='hint'>Elaborazioni ancora disponibili con questo pagamento: " + j.elaborazioni_rimaste + ".</p>" + AIUTO);
