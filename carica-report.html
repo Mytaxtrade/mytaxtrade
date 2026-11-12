@@ -339,7 +339,7 @@
       </section>
 
       <div class="support">
-        Problemi con il caricamento? Scrivi a <a href="mailto:infomytaxtrading@gmail.com">infomytaxtrading@gmail.com</a> (non allegare i report via email).
+        <b>Hai un dubbio o qualcosa non torna?</b> Scrivi a <a href="mailto:infomytaxtrading@gmail.com?subject=Aiuto%20caricamento%20report">infomytaxtrading@gmail.com</a>: ti risponde una persona, di solito entro un giorno lavorativo. Per la tua privacy non allegare i report: bastano il broker e il messaggio che vedi sullo schermo.
       </div>
     </div>
   </main>
@@ -365,11 +365,12 @@
 
     function euro(v) { return (v || 0).toLocaleString("it-IT", { maximumFractionDigits: 0 }) + " €"; }
     function mostra(classe, html) { esito.className = "esito " + classe; esito.innerHTML = html; }
+    const AIUTO = "<p class='hint'>Hai un dubbio? <a href='mailto:infomytaxtrading@gmail.com?subject=Aiuto%20MyTaxTrading'>Scrivici</a>: ti risponde una persona.</p>";
     function testo(t) { const d = document.createElement("div"); d.textContent = t; return d.innerHTML; }
 
     if (!sessione.startsWith("cs_")) {
       bottone.disabled = true;
-      mostra("ko", "<h3>Link non valido</h3>Questa pagina si apre dal link che ricevi dopo il pagamento. Se hai già pagato e non lo trovi, scrivici.");
+      mostra("ko", "<h3>Link non valido</h3>Questa pagina si apre dal link che ricevi dopo il pagamento. Se hai già pagato e non lo trovi, scrivici." + AIUTO);
     }
 
     modulo.addEventListener("submit", async (ev) => {
@@ -383,7 +384,7 @@
       try {
         const r = await fetch(API, { method: "POST", body: dati });
         const j = await r.json();
-        if (!r.ok) { mostra("ko", "<h3>Non è stato possibile elaborare i file</h3>" + testo(j.errore || "Errore")); return; }
+        if (!r.ok) { mostra("ko", "<h3>Non è stato possibile elaborare i file</h3>" + testo(j.errore || "Errore") + AIUTO); return; }
         const pdf = Uint8Array.from(atob(j.pdf), c => c.charCodeAt(0));
         const url = URL.createObjectURL(new Blob([pdf], { type: "application/pdf" }));
         const nome = "mytaxtrading-quadri-" + j.riepilogo.anno + ".pdf";
@@ -395,9 +396,9 @@
           "<div>Imposta 26%<b>" + euro(j.riepilogo.imposta) + "</b></div><div>Minus da riportare<b>" + euro(minus) + "</b></div></div>" +
           "<a class='btn' href='" + url + "' download='" + nome + "'>Scarica di nuovo il PDF</a>" +
           (avvisi ? "<p><b>Da controllare:</b></p><ul class='avvisi'>" + avvisi + "</ul>" : "") +
-          "<p class='hint'>Elaborazioni ancora disponibili con questo pagamento: " + j.elaborazioni_rimaste + ".</p>");
+          "<p class='hint'>Elaborazioni ancora disponibili con questo pagamento: " + j.elaborazioni_rimaste + ".</p>" + AIUTO);
       } catch (e) {
-        mostra("ko", "<h3>Connessione non riuscita</h3>Riprova tra qualche minuto. Se il problema continua, scrivici.");
+        mostra("ko", "<h3>Connessione non riuscita</h3>Riprova tra qualche minuto. Se il problema continua, scrivici." + AIUTO);
       } finally {
         bottone.disabled = !sessione.startsWith("cs_"); bottone.textContent = "Elabora e scarica il documento";
       }

@@ -12,7 +12,7 @@
   <meta property="og:description" content="Dai report del broker ai quadri RT e RW compilati, in pochi minuti." />
   <meta property="og:url" content="https://mytaxtrading.com/" />
   <meta property="og:locale" content="it_IT" />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "name": "MyTaxTrading", "url": "https://mytaxtrading.com/"}, {"@type": "Service", "name": "Calcolo quadri RT e RW per trader", "serviceType": "Elaborazione dati fiscali per regime dichiarativo", "areaServed": "IT", "provider": {"@type": "Organization", "name": "MyTaxTrading", "url": "https://mytaxtrading.com/"}, "offers": [{"@type": "Offer", "price": "49", "priceCurrency": "EUR", "name": "1 broker"}, {"@type": "Offer", "price": "79", "priceCurrency": "EUR", "name": "2 broker"}, {"@type": "Offer", "price": "99", "priceCurrency": "EUR", "name": "3 broker"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cosa ricevo esattamente?", "acceptedAnswer": {"@type": "Answer", "text": "Un PDF con i moduli ufficiali dei quadri RT e RW del Modello Redditi Persone Fisiche già compilati (con la scritta FACSIMILE), da consegnare al CAF o al commercialista, più il prospetto IVAFE e il dettaglio per strumento da conservare."}}, {"@type": "Question", "name": "Fornite consulenza fiscale?", "acceptedAnswer": {"@type": "Answer", "text": "No. È un calcolo di supporto basato sui report del broker. La dichiarazione resta sotto la responsabilità del contribuente e di chi la invia."}}, {"@type": "Question", "name": "Quanto tempo richiede l'elaborazione?", "acceptedAnswer": {"@type": "Answer", "text": "Pochi minuti: carichi i report e scarichi subito il documento."}}, {"@type": "Question", "name": "Che fine fanno i miei report?", "acceptedAnswer": {"@type": "Answer", "text": "Vengono elaborati in automatico su server in Europa e cancellati subito: nessuna persona li vede, non li conserviamo e non chiediamo nome né codice fiscale."}}, {"@type": "Question", "name": "Quali broker sono supportati?", "acceptedAnswer": {"@type": "Answer", "text": "Fineco, Interactive Brokers e DEGIRO. Altri broker verranno aggiunti dopo averli verificati su report reali."}}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "name": "MyTaxTrading", "url": "https://mytaxtrading.com/"}, {"@type": "Service", "name": "Calcolo quadri RT e RW per trader", "serviceType": "Elaborazione dati fiscali per regime dichiarativo", "areaServed": "IT", "provider": {"@type": "Organization", "name": "MyTaxTrading", "url": "https://mytaxtrading.com/"}, "offers": [{"@type": "Offer", "price": "29", "priceCurrency": "EUR", "name": "1 broker"}, {"@type": "Offer", "price": "39", "priceCurrency": "EUR", "name": "2 broker"}, {"@type": "Offer", "price": "49", "priceCurrency": "EUR", "name": "3 broker"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cosa ricevo esattamente?", "acceptedAnswer": {"@type": "Answer", "text": "Un PDF con i moduli ufficiali dei quadri RT e RW del Modello Redditi Persone Fisiche già compilati (con la scritta FACSIMILE), da consegnare al CAF o al commercialista, più il prospetto IVAFE e il dettaglio per strumento da conservare."}}, {"@type": "Question", "name": "Fornite consulenza fiscale?", "acceptedAnswer": {"@type": "Answer", "text": "No. È un calcolo di supporto basato sui report del broker. La dichiarazione resta sotto la responsabilità del contribuente e di chi la invia."}}, {"@type": "Question", "name": "Quanto tempo richiede l'elaborazione?", "acceptedAnswer": {"@type": "Answer", "text": "Pochi minuti: carichi i report e scarichi subito il documento."}}, {"@type": "Question", "name": "Che fine fanno i miei report?", "acceptedAnswer": {"@type": "Answer", "text": "Vengono elaborati in automatico su server in Europa e cancellati subito: nessuna persona li vede, non li conserviamo e non chiediamo nome né codice fiscale."}}, {"@type": "Question", "name": "Il prezzo cambia in base al numero di operazioni?", "acceptedAnswer": {"@type": "Answer", "text": "No. Il prezzo è fisso e dipende solo dal numero di broker: puoi caricare report con migliaia di operazioni senza costi aggiuntivi."}}, {"@type": "Question", "name": "E se ho un dubbio?", "acceptedAnswer": {"@type": "Answer", "text": "Scrivici a infomytaxtrading@gmail.com: ti risponde una persona, di solito entro un giorno lavorativo. Non inviarci i report via email: bastano la descrizione del problema e il messaggio che vedi sullo schermo."}}, {"@type": "Question", "name": "Quali broker sono supportati?", "acceptedAnswer": {"@type": "Answer", "text": "Fineco, Interactive Brokers e DEGIRO. Altri broker verranno aggiunti dopo averli verificati su report reali."}}]}]}</script>
   <style>
     :root {
       --bg: #f6f8fb;
@@ -342,6 +342,10 @@
       .price-card.featured { transform: none; }
       .hero { padding-top: 64px; }
     }
+    .contact-box { max-width: 720px; margin: 0 auto; text-align: center; background: #fff; border: 1px solid rgba(15,23,42,.08); border-radius: 20px; padding: 40px 28px; box-shadow: 0 10px 30px rgba(15,23,42,.06); }
+    .contact-box h2 { margin: 0 0 12px; }
+    .contact-box p { margin: 0 auto 20px; max-width: 560px; }
+    .contact-box .contact-note { margin: 20px auto 0; font-size: .9rem; opacity: .75; }
   </style>
 </head>
 <body>
@@ -352,6 +356,7 @@
         <a href="#come-funziona">Come funziona</a>
         <a href="#prezzi">Prezzi</a>
         <a href="#faq">FAQ</a>
+        <a href="#contatti">Contatti</a>
         <a class="btn" href="#prezzi">Scegli il piano</a>
       </nav>
     </div>
@@ -454,44 +459,44 @@
       <div class="container">
         <div class="section-title">
           <h2>Scegli il piano</h2>
-          <p>Pagamento sicuro tramite Stripe. Dopo il pagamento si apre la pagina per caricare i report.</p>
+          <p><strong>Prezzo fisso, operazioni illimitate.</strong> Paghi solo in base al numero di broker, non per quante operazioni hai fatto. Pagamento sicuro tramite Stripe; dopo il pagamento si apre la pagina per caricare i report.</p>
         </div>
         <div class="price-grid">
           <div class="price-card">
             <h3>1 Broker</h3>
-            <div class="price">49€</div>
+            <div class="price">29€</div>
             <p>Per chi usa un solo broker nell’anno fiscale.</p>
             <ul class="check-list">
-              <li>Elaborazione report broker</li>
+              <li>Operazioni illimitate</li>
               <li>Quadri RT e RW compilati</li>
               <li>PDF subito scaricabile</li>
             </ul>
-            <a class="btn" href="https://buy.stripe.com/5kQ5kC1Jg0VodCxcrU8og00">Paga 49€</a>
+            <a class="btn" href="https://buy.stripe.com/5kQ5kC1Jg0VodCxcrU8og00">Paga 29€</a>
           </div>
 
           <div class="price-card featured">
             <div class="badge">Più scelto</div>
             <h3>2 Broker</h3>
-            <div class="price">79€</div>
+            <div class="price">39€</div>
             <p>Per chi ha operato su due broker diversi.</p>
             <ul class="check-list">
-              <li>Elaborazione 2 report broker</li>
+              <li>Operazioni illimitate</li>
               <li>Quadri RT e RW consolidati</li>
               <li>PDF subito scaricabile</li>
             </ul>
-            <a class="btn" href="https://buy.stripe.com/14AbJ01JgcE6dCx0Jc8og01">Paga 79€</a>
+            <a class="btn" href="https://buy.stripe.com/14AbJ01JgcE6dCx0Jc8og01">Paga 39€</a>
           </div>
 
           <div class="price-card">
             <h3>3 Broker</h3>
-            <div class="price">99€</div>
+            <div class="price">49€</div>
             <p>Per chi usa tre broker nell’anno fiscale.</p>
             <ul class="check-list">
-              <li>Elaborazione 3 report broker</li>
+              <li>Operazioni illimitate</li>
               <li>Quadri RT e RW consolidati</li>
               <li>PDF subito scaricabile</li>
             </ul>
-            <a class="btn" href="https://buy.stripe.com/bJeeVc1JgeMe7e92Rk8og02">Paga 99€</a>
+            <a class="btn" href="https://buy.stripe.com/bJeeVc1JgeMe7e92Rk8og02">Paga 49€</a>
           </div>
         </div>
       </div>
@@ -521,9 +526,28 @@
             <p>Vengono elaborati in automatico su server in Europa e cancellati subito: nessuna persona li vede, non li conserviamo e non chiediamo nome né codice fiscale.</p>
           </div>
           <div class="faq-item">
+            <h3>Il prezzo cambia in base al numero di operazioni?</h3>
+            <p>No. Il prezzo è fisso e dipende solo dal numero di broker: puoi caricare report con migliaia di operazioni senza costi aggiuntivi.</p>
+          </div>
+          <div class="faq-item">
+            <h3>E se ho un dubbio?</h3>
+            <p>Scrivici: ti risponde una persona, di solito entro un giorno lavorativo. Trovi i contatti qui sotto.</p>
+          </div>
+          <div class="faq-item">
             <h3>Quali broker sono supportati?</h3>
             <p>Fineco, Interactive Brokers e DEGIRO. Altri broker verranno aggiunti dopo averli verificati su report reali.</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contatti">
+      <div class="container">
+        <div class="contact-box">
+          <h2>Hai un dubbio? Scrivici</h2>
+          <p>Prima di acquistare, durante il caricamento o dopo aver scaricato il documento: ti risponde una persona, di solito entro un giorno lavorativo.</p>
+          <a class="btn" href="mailto:infomytaxtrading@gmail.com?subject=Domanda%20su%20MyTaxTrading">Scrivi a infomytaxtrading@gmail.com</a>
+          <p class="contact-note">Per tutelare la tua privacy non inviarci i report né il codice fiscale: bastano la descrizione del problema, il broker e l'eventuale messaggio che vedi sullo schermo.</p>
         </div>
       </div>
     </section>
