@@ -280,7 +280,7 @@
     @keyframes gira { to { transform: rotate(360deg); } }
     @media (prefers-reduced-motion: reduce) { .passi-lavoro li.corrente .pallino { animation: none; } }
     .btn[disabled] { opacity: .55; cursor: wait; transform: none; }
-    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 12px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 12px; align-items: end; }
 
     @media (max-width: 760px) {
       main { padding: 42px 0; }
@@ -345,10 +345,10 @@
             <summary>Hai un conto DEGIRO? Valori per il quadro RW</summary>
             <span class="hint">I file di DEGIRO non contengono il valore del conto. Copialo dal <b>report annuale DEGIRO</b> (in PDF, nella sezione dei documenti): con questi valori compiliamo anche il quadro RW e l'IVAFE. Importi in euro. Se lasci vuoto, il quadro RW di DEGIRO non viene compilato.</span>
             <div class="grid-4">
-              <div><label for="dg-iniziale">Valore del conto al 1° gennaio</label><input id="dg-iniziale" name="degiro_valore_iniziale" inputmode="decimal" placeholder="0" /></div>
-              <div><label for="dg-titoli">Valore dei titoli al 31 dicembre</label><input id="dg-titoli" name="degiro_titoli_finali" inputmode="decimal" placeholder="0" /></div>
-              <div><label for="dg-liquidita">Liquidità al 31 dicembre</label><input id="dg-liquidita" name="degiro_liquidita_finale" inputmode="decimal" placeholder="0" /></div>
-              <div><label for="dg-apertura">Conto aperto nell'anno? Data di apertura</label><input id="dg-apertura" name="degiro_apertura" type="date" /></div>
+              <div><label for="dg-iniziale">Valore del conto al 1/1</label><input id="dg-iniziale" name="degiro_valore_iniziale" inputmode="decimal" placeholder="0" /></div>
+              <div><label for="dg-titoli">Titoli al 31/12</label><input id="dg-titoli" name="degiro_titoli_finali" inputmode="decimal" placeholder="0" /></div>
+              <div><label for="dg-liquidita">Liquidità al 31/12</label><input id="dg-liquidita" name="degiro_liquidita_finale" inputmode="decimal" placeholder="0" /></div>
+              <div><label for="dg-apertura">Aperto nel corso dell'anno? Data</label><input id="dg-apertura" name="degiro_apertura" type="date" /></div>
             </div>
           </details>
 
