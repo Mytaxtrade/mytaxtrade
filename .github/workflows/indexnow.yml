@@ -3,13 +3,13 @@ name: IndexNow
 on:
   push:
     branches: [main]
-    paths: ['**.html', 'sitemap.xml', '6bdc6c5a1b5b99e9bebace0b8931a08b.txt']
+    paths: ['**.html', 'sitemap.xml', '6bdc6c5a1b5b99e9bebace0b8931a08b.txt', '.github/workflows/indexnow.yml']
   workflow_dispatch:     # avvio manuale: segnala tutte le pagine della sitemap
 jobs:
   segnala:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 2
       - name: Attendi la pubblicazione su Vercel
@@ -20,7 +20,7 @@ jobs:
           CHIAVE: 6bdc6c5a1b5b99e9bebace0b8931a08b
           SITO: mytaxtrading.com
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || git diff --name-only HEAD~1 HEAD | grep -q "$CHIAVE.txt"; then
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || git diff --name-only HEAD~1 HEAD | grep -qE "$CHIAVE.txt|indexnow.yml"; then
             urls=$(grep -o '<loc>[^<]*' sitemap.xml | sed 's/<loc>//' | while read u; do printf '"%s",' "$u"; done | sed 's/,$//')
           else
             pagine=$(git diff --name-only HEAD~1 HEAD -- '*.html' | grep -v '^google' || true)
@@ -30,7 +30,12 @@ jobs:
                      printf '"%s",' "$u"; done | sed 's/,$//')
           fi
           echo "Segnalo: $urls"
-          curl -sS -o /dev/null -w "Risposta IndexNow: %{http_code}\n" \
+          codice=$(curl -sS -o /dev/null -w "%{http_code}" \
             -H 'Content-Type: application/json; charset=utf-8' \
             -X POST https://api.indexnow.org/indexnow \
-            -d "{\"host\":\"$SITO\",\"key\":\"$CHIAVE\",\"keyLocation\":\"https://$SITO/$CHIAVE.txt\",\"urlList\":[$urls]}"
+            -d "{\"host\":\"$SITO\",\"key\":\"$CHIAVE\",\"keyLocation\":\"https://$SITO/$CHIAVE.txt\",\"urlList\":[$urls]}")
+          n=$(echo "$urls" | tr ',' '\n' | wc -l)
+          case "$codice" in
+            200|202) echo "::notice::IndexNow ha accettato $n pagine (risposta $codice)";;
+            *) echo "::error::IndexNow ha rifiutato la segnalazione (risposta $codice)"; exit 1;;
+          esac
