@@ -100,7 +100,8 @@ p { margin: 0; }
 .vs-noi .vs-chi, .vs-noi .vs-sotto, .vs-noi ul { color: rgba(255,255,255,.85); }
 .vs-noi .vs-prezzo { color: #fff; }
 .vs-noi ul { border-top-color: rgba(255,255,255,.25); font-weight: 600; color: #fff; }
-@media (max-width: 380px) { .vs { grid-template-columns: 1fr; } }
+@media (max-width: 640px) { .vs-prezzo { font-size: 28px; } .vs-col { padding: 16px 12px; } }
+@media (max-width: 340px) { .vs { grid-template-columns: 1fr; } }
 .fonte { font-size: 13px; color: var(--tenue); margin-top: 10px; }
 .piani { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch; }
 .piano { display: flex; flex-direction: column; padding: 28px; }
@@ -263,13 +264,13 @@ h2 { font-size: clamp(30px, 3.6vw, 42px); line-height: 1.1; letter-spacing: -0.0
           <div class="vs">
             <div class="vs-col">
               <p class="vs-chi">Altri servizi</p>
-              <p class="vs-prezzo">da 49 €</p>
-              <p class="vs-sotto">fino a oltre 300 €</p>
+              <p class="vs-prezzo">da 49&nbsp;€</p>
+              <p class="vs-sotto">fino a oltre 300&nbsp;€</p>
               <ul><li>Costa di più con un capitale alto o tante operazioni</li><li>Consegna in giorni o settimane</li></ul>
             </div>
             <div class="vs-col vs-noi">
               <p class="vs-chi">MyTaxTrading</p>
-              <p class="vs-prezzo">29 €</p>
+              <p class="vs-prezzo">29&nbsp;€</p>
               <p class="vs-sotto">prezzo fisso</p>
               <ul><li>Stesso prezzo qualunque sia il capitale</li><li>Quadri pronti in pochi secondi</li></ul>
             </div>
