@@ -136,6 +136,8 @@
       margin-bottom: 8px;
     }
 
+    .piano-cliente { display: none; margin: 10px 0 0; font-weight: 700; color: var(--dark); }
+    .piano-cliente.attivo { display: block; }
     .hint {
       display: block;
       font-size: 13px;
@@ -350,6 +352,7 @@ body { font-family: "Schibsted Grotesk", system-ui, sans-serif; }
       <section class="hero">
         <div class="eyebrow">Pagamento completato</div>
         <h1>Carica i report del broker</h1>
+        <p class="piano-cliente" id="piano-cliente"></p>
         <p>Allega i report dell'anno e scarica subito il documento con i quadri RT e RW compilati, da consegnare al tuo CAF o commercialista.</p>
       </section>
 
@@ -369,14 +372,14 @@ body { font-family: "Schibsted Grotesk", system-ui, sans-serif; }
             </div>
             <div>
               <label>Report accettati</label>
-              <span class="hint"><b>Fineco</b>: Excel.<br><b>Interactive Brokers</b>: CSV, in italiano.<br><b>DEGIRO</b>: Excel o CSV (operazioni ed estratto conto).<br><a href="come-scaricare-i-report.html" target="_blank" style="color:var(--primary);font-weight:700">Come scaricarli &rarr;</a></span>
+              <span class="hint"><b>Fineco</b>: PDF, come lo scarichi dal sito.<br><b>Interactive Brokers</b>: CSV (consigliato) o PDF, in italiano.<br><b>DEGIRO</b>: Excel o CSV (operazioni ed estratto conto).<br><a href="come-scaricare-i-report.html" target="_blank" style="color:var(--primary);font-weight:700">Come scaricarli &rarr;</a></span>
             </div>
           </div>
 
           <div class="file-box">
             <label for="report">Report del broker *</label>
-            <input type="file" id="report" name="file" required multiple accept=".csv,.xlsx,.xls" />
-            <span class="hint">Carica tutti i report dagli anni in cui sei in regime dichiarativo: servono per il costo dei titoli comprati negli anni precedenti. Massimo 4 MB in totale. Formati: Excel o CSV. Non sai quale file scaricare? <a href="come-scaricare-i-report.html" target="_blank" style="color:var(--primary);font-weight:700">Guida ai report</a></span>
+            <input type="file" id="report" name="file" required multiple accept=".pdf,.csv,.xlsx,.xls" />
+            <span class="hint"><b>Puoi selezionare più file insieme, anche di broker diversi:</b> tieni premuto Cmd (Mac) o Ctrl (Windows) mentre li scegli. Carica tutti i report dagli anni in cui sei in regime dichiarativo: servono per il costo dei titoli comprati negli anni precedenti. Massimo 4 MB in totale. Formati: PDF, Excel o CSV. Non sai quale file scaricare? <a href="come-scaricare-i-report.html" target="_blank" style="color:var(--primary);font-weight:700">Guida ai report</a></span>
           </div>
 
           <details>
@@ -433,6 +436,13 @@ body { font-family: "Schibsted Grotesk", system-ui, sans-serif; }
     // indirizzo della funzione di elaborazione (progetto Vercel del motore, server a Francoforte)
     const API = "https://mytaxtrading-motore.vercel.app/api/elabora";
     const sessione = new URLSearchParams(location.search).get("session_id") || "";
+    // piano scelto: solo indicazione per il cliente (il limite vero lo controlla il motore sul pagamento)
+    const piano = new URLSearchParams(location.search).get("piano");
+    if (["1", "2", "3"].includes(piano)) {
+      const p = document.getElementById("piano-cliente");
+      p.textContent = piano === "1" ? "Il tuo piano comprende 1 broker." : "Il tuo piano comprende fino a " + piano + " broker: carica insieme i report di tutti.";
+      p.className = "piano-cliente attivo";
+    }
     const modulo = document.getElementById("modulo");
     const esito = document.getElementById("esito");
     const bottone = document.getElementById("invia");

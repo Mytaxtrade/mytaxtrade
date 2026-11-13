@@ -19,7 +19,7 @@
     {"@type":"Question","name":"Quando è disponibile il report di Interactive Brokers dell'anno precedente?","acceptedAnswer":{"@type":"Answer","text":"Il rendiconto annuale di Interactive Brokers è disponibile di norma entro il 31 gennaio. Va scaricato dal Portale clienti in formato CSV, in italiano."}},
     {"@type":"Question","name":"Quando è disponibile il report di Fineco per il regime dichiarativo?","acceptedAnswer":{"@type":"Answer","text":"Il report fiscale di Fineco dell'anno precedente è disponibile da marzo, nella sezione Portafoglio, Report, Certificazioni fiscali. Serve la versione Excel."}},
     {"@type":"Question","name":"Quali file DEGIRO servono per la dichiarazione?","acceptedAnswer":{"@type":"Answer","text":"Servono due file: le transazioni e l'estratto conto, esportati in Excel o CSV. Si possono scaricare subito dopo la fine dell'anno, senza aspettare il report annuale."}},
-    {"@type":"Question","name":"Posso caricare i report in PDF?","acceptedAnswer":{"@type":"Answer","text":"No: il PDF serve per leggere, non per elaborare. Servono i file in Excel o CSV, che tutti e tre i broker permettono di scaricare."}}
+    {"@type":"Question","name":"Posso caricare i report in PDF?","acceptedAnswer":{"@type":"Answer","text":"Per Fineco sì: si carica il report fiscale in PDF, così come lo scarichi. Per Interactive Brokers sì, ma è meglio il CSV, che contiene anche dividendi e interessi. Per DEGIRO no: servono i file in CSV o Excel."}}
   ]}</script>
   <style>
     :root {
@@ -141,7 +141,7 @@ body { font-family: "Schibsted Grotesk", system-ui, sans-serif; }
       <h1>Come scaricare i report del tuo broker</h1>
       <p>Per compilare i quadri RT e RW servono i file con le operazioni che il broker mette a disposizione nella tua area clienti. Qui trovi, per ogni broker, cosa scaricare, dove si trova e da quando è disponibile.</p>
       <div class="riassunto">
-        <a href="#fineco"><b>Fineco</b><span class="etichetta">Excel</span><span class="quando">Disponibile da marzo</span></a>
+        <a href="#fineco"><b>Fineco</b><span class="etichetta">PDF</span><span class="quando">Disponibile da marzo</span></a>
         <a href="#interactive-brokers"><b>Interactive Brokers</b><span class="etichetta">CSV</span><span class="quando">Disponibile entro il 31 gennaio</span></a>
         <a href="#degiro"><b>DEGIRO</b><span class="etichetta">Excel o CSV</span><span class="quando">Disponibile da inizio gennaio</span></a>
       </div>
@@ -150,7 +150,7 @@ body { font-family: "Schibsted Grotesk", system-ui, sans-serif; }
     <section class="regole">
       <h2>Tre regole valide per tutti</h2>
       <ul>
-        <li><b>Excel o CSV, non PDF.</b> Il PDF è fatto per essere letto da una persona, non per essere elaborato: scegli sempre l'esportazione in Excel o CSV.</li>
+        <li><b>Il formato giusto.</b> Fineco: il report in PDF, così come lo scarichi. Interactive Brokers: il CSV (va bene anche il PDF). DEGIRO: esportazione in CSV o Excel, non in PDF.</li>
         <li><b>Tutti gli anni, non solo l'ultimo.</b> Se vendi titoli comprati negli anni precedenti, serve anche il prezzo di acquisto: carica i report di tutti gli anni in cui sei in regime dichiarativo con quel broker.</li>
         <li><b>Usa il sito dal computer.</b> Le app dei broker spesso non permettono di esportare i file: accedi all'area clienti dal browser.</li>
       </ul>
@@ -159,7 +159,7 @@ body { font-family: "Schibsted Grotesk", system-ui, sans-serif; }
     <section class="broker" id="fineco">
       <div class="broker-testa"><h2>Fineco</h2></div>
       <div class="dati">
-        <span class="dato">Formato: <b>Excel</b></span>
+        <span class="dato">Formato: <b>PDF</b></span>
         <span class="dato">Disponibile: <b>da marzo</b> dell'anno successivo</span>
         <span class="dato">File da caricare: <b>uno per anno</b></span>
       </div>
@@ -167,7 +167,7 @@ body { font-family: "Schibsted Grotesk", system-ui, sans-serif; }
         <li>Accedi a <b>finecobank.com</b> dal computer con le tue credenziali.</li>
         <li>Apri <span class="menu">Portafoglio</span> → <span class="menu">Report</span> → <span class="menu">Certificazioni fiscali</span>.</li>
         <li>Scegli l'anno fiscale e premi <span class="menu">Cerca</span>.</li>
-        <li>Scarica il report in <b>Excel</b>. Ripeti per ogni anno in cui sei in regime dichiarativo.</li>
+        <li>Scarica il report in <b>PDF</b>, senza modificarlo. Ripeti per ogni anno in cui sei in regime dichiarativo.</li>
       </ol>
       <div class="attenzione"><b>Attenzione:</b> prima di marzo il report dell'anno appena chiuso di solito non c'è ancora. Se l'anno non compare, riprova più avanti.</div>
     </section>
@@ -175,7 +175,7 @@ body { font-family: "Schibsted Grotesk", system-ui, sans-serif; }
     <section class="broker" id="interactive-brokers">
       <div class="broker-testa"><h2>Interactive Brokers</h2></div>
       <div class="dati">
-        <span class="dato">Formato: <b>CSV</b>, in <b>italiano</b></span>
+        <span class="dato">Formato: <b>CSV</b> (consigliato) o PDF, in <b>italiano</b></span>
         <span class="dato">Disponibile: <b>entro il 31 gennaio</b></span>
         <span class="dato">File da caricare: <b>uno per anno</b></span>
       </div>
@@ -183,9 +183,9 @@ body { font-family: "Schibsted Grotesk", system-ui, sans-serif; }
         <li>Accedi al <b>Portale clienti</b> dal sito di Interactive Brokers (non dall'app TWS o dall'app per telefono).</li>
         <li>Apri <span class="menu">Report</span> (o <span class="menu">Performance e report</span>) → <span class="menu">Rendiconti</span>.</li>
         <li>Nella riga <span class="menu">Attività</span> scegli il periodo <b>Annuale</b> e l'anno da dichiarare.</li>
-        <li>Imposta il formato <b>CSV</b> e la lingua <b>Italiano</b>, poi scarica il file. Ripeti per ogni anno.</li>
+        <li>Imposta il formato <b>CSV</b> e la lingua <b>Italiano</b>, poi scarica il file. Ripeti per ogni anno. Va bene anche il PDF, ma solo il CSV contiene dividendi e interessi, che servono per il quadro RM.</li>
       </ol>
-      <div class="attenzione"><b>Errori tipici:</b> file in PDF o HTML, lingua inglese, periodo mensile invece che annuale. Se hai chiuso e riaperto il conto, scarica i rendiconti di entrambi i conti.</div>
+      <div class="attenzione"><b>Errori tipici:</b> file in HTML, lingua inglese, periodo mensile invece che annuale. Se hai chiuso e riaperto il conto, scarica i rendiconti di entrambi i conti.</div>
     </section>
 
     <section class="broker" id="degiro">
