@@ -17,8 +17,8 @@
       --dark: #0f172a;
       --text: #334155;
       --muted: #64748b;
-      --primary: #2563eb;
-      --primary-dark: #1d4ed8;
+      --primary: #17604A;
+      --primary-dark: #0F4B39;
       --card: #ffffff;
       --border: #e2e8f0;
       --success: #16a34a;
@@ -31,7 +31,7 @@
     body {
       margin: 0;
       font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top right, #dbeafe 0, transparent 32%), var(--bg);
+      background: radial-gradient(circle at top right, #E2F1E9 0, transparent 32%), var(--bg);
       color: var(--text);
       line-height: 1.6;
     }
@@ -77,8 +77,8 @@
       display: inline-flex;
       padding: 6px 12px;
       border-radius: 999px;
-      background: #dbeafe;
-      color: #1e40af;
+      background: #E2F1E9;
+      color: #17604A;
       font-weight: 700;
       font-size: 14px;
       margin-bottom: 18px;
@@ -158,7 +158,7 @@
 
     input:focus, select:focus, textarea:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+      box-shadow: 0 0 0 4px rgba(23, 96, 74, 0.14);
     }
 
     textarea {
@@ -287,12 +287,69 @@
       .grid-2, .checkbox-grid, .numeri, .grid-4 { grid-template-columns: 1fr; }
       .card { padding: 24px; }
     }
+  @font-face { font-family: "Schibsted Grotesk"; src: url("fonts/schibsted-grotesk.woff2") format("woff2"); font-weight: 400 900; font-display: swap; }
+:root { --bg: #F7F9F8; --dark: #10231C; --text: #2B3B35; --muted: #5C6E66; --primary: #17604A; --primary-dark: #0F4B39; --border: #D3E2DA; --success: #1E8A5A; --soft: #EAF3EE; }
+body { font-family: "Schibsted Grotesk", system-ui, sans-serif; }
+:focus-visible { outline: 3px solid #E0A100; outline-offset: 3px; border-radius: 4px; }
+.testata { position: sticky; top: 0; z-index: 20; background: rgba(247,249,248,.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+.testata .wrap { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+.testata .nav { height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.testata .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--dark); font-weight: 600; font-size: 20px; letter-spacing: -0.02em; }
+.testata .logo b { font-weight: 800; color: var(--primary); }
+.logo-segno { display: grid; gap: 3px; width: 26px; padding: 4px; border: 2px solid var(--primary); border-radius: 4px; }
+.logo-segno i { display: block; height: 3px; background: var(--primary); }
+.logo-segno i:nth-child(2) { width: 70%; } .logo-segno i:nth-child(3) { width: 45%; }
+.menu-desktop { display: flex; align-items: center; gap: 4px; }
+.menu-desktop > a:not(.btn), .tendina > summary { color: var(--text); text-decoration: none; padding: 10px 12px; border-radius: 8px; font-size: 15px; font-weight: 500; cursor: pointer; }
+.menu-desktop > a:not(.btn):hover, .tendina > summary:hover { color: var(--dark); background: var(--soft); }
+.testata .btn-nav { min-height: 42px; padding: 0 18px; margin-left: 8px; font-size: 15px; border-radius: 8px; display: inline-flex; align-items: center; background: var(--primary); color: #fff; font-weight: 700; text-decoration: none; }
+.tendina { position: relative; }
+.tendina > summary { list-style: none; display: flex; align-items: center; gap: 6px; }
+.tendina > summary::-webkit-details-marker { display: none; }
+.tendina > summary::after { content: ""; width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg) translateY(-2px); }
+.tendina[open] > summary::after { transform: rotate(-135deg) translateY(-1px); }
+.tendina-voci { position: absolute; top: calc(100% + 6px); left: 0; min-width: 270px; background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 8px; box-shadow: 0 12px 32px rgba(15,23,42,.12); display: grid; }
+.tendina-voci a { padding: 10px 12px; border-radius: 8px; color: var(--dark); text-decoration: none; font-size: 15px; }
+.tendina-voci a:hover { background: var(--soft); }
+.menu-mobile { display: none; }
+.menu-mobile > summary { list-style: none; width: 44px; height: 44px; display: grid; place-content: center; gap: 5px; cursor: pointer; border-radius: 10px; border: 1px solid var(--border); }
+.menu-mobile > summary::-webkit-details-marker { display: none; }
+.menu-mobile > summary span { display: block; width: 20px; height: 2px; background: var(--dark); }
+.menu-mobile .menu-voci { position: absolute; left: 0; right: 0; top: 70px; background: #fff; border-bottom: 1px solid var(--border); padding: 12px 24px 20px; display: grid; gap: 2px; box-shadow: 0 16px 32px rgba(15,23,42,.1); }
+.menu-mobile .menu-voci > a:not(.btn), .menu-mobile .tendina > summary { padding: 12px 0; color: var(--dark); text-decoration: none; font-weight: 600; }
+.menu-mobile .tendina-voci { position: static; box-shadow: none; border: 0; padding: 0 0 8px 12px; min-width: 0; }
+.menu-mobile .btn-nav { margin: 10px 0 0; justify-content: center; }
+@media (max-width: 980px) { .menu-desktop { display: none; } .menu-mobile { display: block; } }
+@media (max-width: 720px) { .testata .wrap { padding: 0 16px; } }
+
+    :root { --warning-bg: #FFF7ED; --warning-border: #FED7AA; }
+    .btn, button.btn { background: var(--primary); }
+    .testata details.tendina, .testata details.menu-mobile { border: 0; border-radius: 0; padding: 0; background: none; }
+    .menu-desktop a, .menu-desktop summary { white-space: nowrap; }
+    .btn:hover { background: var(--primary-dark); }
   </style>
 </head>
 <body>
-  <header>
-    <div class="container nav">
-      <a href="index.html" class="logo">MyTax<span>Trading</span></a>
+  <header class="testata">
+    <div class="wrap nav">
+      <a href="index.html" class="logo" aria-label="MyTaxTrading, homepage"><span class="logo-segno" aria-hidden="true"><i></i><i></i><i></i></span><span>MyTax<b>Trading</b></span></a>
+      <details class="menu-mobile"><summary aria-label="Apri il menu"><span></span><span></span><span></span></summary>
+        <nav class="menu-voci"><a href="index.html#come-funziona">Come funziona</a><a href="index.html#prezzi">Prezzi</a>
+        <details class="tendina"><summary>Guide</summary><div class="tendina-voci">
+          <a href="come-scaricare-i-report.html">Come scaricare i report</a>
+          <a href="amministrato-o-dichiarativo.html">Amministrato o dichiarativo</a>
+          <a href="come-dichiarare-interactive-brokers.html">Dichiarare Interactive Brokers</a>
+          <a href="come-dichiarare-degiro.html">Dichiarare DEGIRO</a></div></details>
+        <a href="index.html#faq">Domande</a><a href="contatti.html">Contatti</a>
+        <a class="btn btn-nav" href="index.html#prezzi">Scegli il piano</a></nav></details>
+      <nav class="menu-desktop"><a href="index.html#come-funziona">Come funziona</a><a href="index.html#prezzi">Prezzi</a>
+        <details class="tendina"><summary>Guide</summary><div class="tendina-voci">
+          <a href="come-scaricare-i-report.html">Come scaricare i report</a>
+          <a href="amministrato-o-dichiarativo.html">Amministrato o dichiarativo</a>
+          <a href="come-dichiarare-interactive-brokers.html">Dichiarare Interactive Brokers</a>
+          <a href="come-dichiarare-degiro.html">Dichiarare DEGIRO</a></div></details>
+        <a href="index.html#faq">Domande</a><a href="contatti.html">Contatti</a>
+        <a class="btn btn-nav" href="index.html#prezzi">Scegli il piano</a></nav>
     </div>
   </header>
 
