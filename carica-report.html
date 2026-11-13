@@ -372,7 +372,7 @@ body { font-family: "Schibsted Grotesk", system-ui, sans-serif; }
             </div>
             <div>
               <label>Report accettati</label>
-              <span class="hint"><b>Fineco</b>: PDF, come lo scarichi dal sito.<br><b>Interactive Brokers</b>: CSV (consigliato) o PDF, in italiano.<br><b>DEGIRO</b>: Excel o CSV (operazioni ed estratto conto).<br><a href="come-scaricare-i-report.html" target="_blank" style="color:var(--primary);font-weight:700">Come scaricarli &rarr;</a></span>
+              <span class="hint"><b>Fineco</b>: PDF, come lo scarichi dal sito.<br><b>Interactive Brokers</b>: CSV (consigliato) o PDF, in italiano.<br><b>eToro</b>: estratto conto in Excel.<br><b>Trading 212</b>: CSV del conto Invest (i CFD non sono inclusi).<br><b>DEGIRO</b>: Excel o CSV (operazioni ed estratto conto).<br><a href="come-scaricare-i-report.html" target="_blank" style="color:var(--primary);font-weight:700">Come scaricarli &rarr;</a></span>
             </div>
           </div>
 
@@ -401,6 +401,26 @@ body { font-family: "Schibsted Grotesk", system-ui, sans-serif; }
               <div><label for="dg-titoli">Titoli al 31/12</label><input id="dg-titoli" name="degiro_titoli_finali" inputmode="decimal" placeholder="0" /></div>
               <div><label for="dg-liquidita">Liquidità al 31/12</label><input id="dg-liquidita" name="degiro_liquidita_finale" inputmode="decimal" placeholder="0" /></div>
               <div><label for="dg-apertura">Aperto nel corso dell'anno? Data</label><input id="dg-apertura" name="degiro_apertura" type="date" /></div>
+            </div>
+          </details>
+          <details id="blocco-etoro">
+            <summary>Solo per eToro: valore del conto per il quadro RW</summary>
+            <span class="hint">L'estratto conto eToro non riporta il valore delle posizioni ancora aperte a fine anno. Copia i valori dal riepilogo dell'estratto conto (<i>Account Summary</i>) o dal portafoglio, <b>convertiti in euro</b>. Se lasci vuoto, il quadro RW di eToro non viene compilato.</span>
+            <div class="grid-4">
+              <div><label for="etoro-iniziale">Valore del conto al 1/1</label><input id="etoro-iniziale" name="etoro_valore_iniziale" inputmode="decimal" placeholder="0" /></div>
+              <div><label for="etoro-titoli">Titoli al 31/12</label><input id="etoro-titoli" name="etoro_titoli_finali" inputmode="decimal" placeholder="0" /></div>
+              <div><label for="etoro-liquidita">Liquidità al 31/12</label><input id="etoro-liquidita" name="etoro_liquidita_finale" inputmode="decimal" placeholder="0" /></div>
+              <div><label for="etoro-apertura">Aperto nel corso dell'anno? Data</label><input id="etoro-apertura" name="etoro_apertura" type="date" /></div>
+            </div>
+          </details>
+          <details id="blocco-t212">
+            <summary>Solo per Trading 212: valore del conto per il quadro RW</summary>
+            <span class="hint">L'export di Trading 212 non contiene il valore dei titoli a fine anno: indica quello che vedi nell'app al 31 dicembre, in euro. La liquidità la calcoliamo noi dai movimenti: compilala solo se vuoi indicarla tu.</span>
+            <div class="grid-4">
+              <div><label for="t212-iniziale">Valore del conto al 1/1</label><input id="t212-iniziale" name="t212_valore_iniziale" inputmode="decimal" placeholder="0" /></div>
+              <div><label for="t212-titoli">Titoli al 31/12</label><input id="t212-titoli" name="t212_titoli_finali" inputmode="decimal" placeholder="0" /></div>
+              <div><label for="t212-liquidita">Liquidità al 31/12 (facoltativa)</label><input id="t212-liquidita" name="t212_liquidita_finale" inputmode="decimal" placeholder="calcolata da noi" /></div>
+              <div><label for="t212-apertura">Aperto nel corso dell'anno? Data</label><input id="t212-apertura" name="t212_apertura" type="date" /></div>
             </div>
           </details>
 
