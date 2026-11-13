@@ -1,0 +1,36 @@
+# Segnala a Bing e agli altri motori IndexNow le pagine nuove o modificate, a ogni pubblicazione.
+name: IndexNow
+on:
+  push:
+    branches: [main]
+    paths: ['**.html', 'sitemap.xml', '6bdc6c5a1b5b99e9bebace0b8931a08b.txt']
+  workflow_dispatch:     # avvio manuale: segnala tutte le pagine della sitemap
+jobs:
+  segnala:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Attendi la pubblicazione su Vercel
+        if: github.event_name == 'push'
+        run: sleep 90
+      - name: Invia le pagine cambiate
+        env:
+          CHIAVE: 6bdc6c5a1b5b99e9bebace0b8931a08b
+          SITO: mytaxtrading.com
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || git diff --name-only HEAD~1 HEAD | grep -q "$CHIAVE.txt"; then
+            urls=$(grep -o '<loc>[^<]*' sitemap.xml | sed 's/<loc>//' | while read u; do printf '"%s",' "$u"; done | sed 's/,$//')
+          else
+            pagine=$(git diff --name-only HEAD~1 HEAD -- '*.html' | grep -v '^google' || true)
+            [ -z "$pagine" ] && { echo "Nessuna pagina cambiata"; exit 0; }
+            urls=$(for p in $pagine; do
+                     [ "$p" = "index.html" ] && u="https://$SITO/" || u="https://$SITO/$p"
+                     printf '"%s",' "$u"; done | sed 's/,$//')
+          fi
+          echo "Segnalo: $urls"
+          curl -sS -o /dev/null -w "Risposta IndexNow: %{http_code}\n" \
+            -H 'Content-Type: application/json; charset=utf-8' \
+            -X POST https://api.indexnow.org/indexnow \
+            -d "{\"host\":\"$SITO\",\"key\":\"$CHIAVE\",\"keyLocation\":\"https://$SITO/$CHIAVE.txt\",\"urlList\":[$urls]}"
