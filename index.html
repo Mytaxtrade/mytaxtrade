@@ -89,16 +89,18 @@ p { margin: 0; }
 .barra i { position: absolute; left: 0; bottom: 6px; height: 8px; width: var(--l); border-radius: 4px; background: var(--bordo-forte); }
 .barra.noi i { background: var(--azione); }
 .barra.noi .valore { color: var(--azione); font-weight: 700; }
-.tab-confronto { width: 100%; border-collapse: collapse; font-size: 15px; }
-.tab-confronto th, .tab-confronto td { text-align: left; padding: 12px 10px; border-bottom: 1px solid var(--bordo); vertical-align: top; }
-.tab-confronto thead th { font-size: 14px; color: var(--tenue); font-weight: 600; border-bottom: 2px solid var(--inchiostro); }
-.tab-confronto tbody th { font-weight: 600; color: var(--inchiostro); width: 38%; }
-.tab-confronto td { color: var(--tenue); }
-.tab-confronto .noi { color: var(--azione); font-weight: 700; }
-.tab-confronto thead .noi { color: var(--azione); }
-.tab-confronto tbody tr:last-child th, .tab-confronto tbody tr:last-child td { border-bottom: 0; }
-@media (max-width: 640px) { .tab-confronto { font-size: 14px; } .tab-confronto th, .tab-confronto td { padding: 10px 6px; } .tab-confronto tbody th { width: 34%; } }
-.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.vs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.vs-col { border: 1px solid var(--bordo); border-radius: 6px; padding: 18px 16px; background: var(--fondo-2); }
+.vs-col p { margin: 0; }
+.vs-chi { font-size: 14px; font-weight: 600; color: var(--tenue); }
+.vs-prezzo { font-size: 34px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-top: 10px !important; color: var(--tenue); }
+.vs-sotto { font-size: 14px; color: var(--tenue); }
+.vs-col ul { margin: 14px 0 0; padding: 14px 0 0; border-top: 1px solid var(--bordo); list-style: none; display: grid; gap: 8px; font-size: 14px; line-height: 1.4; color: var(--tenue); }
+.vs-noi { background: var(--azione); border-color: var(--azione); }
+.vs-noi .vs-chi, .vs-noi .vs-sotto, .vs-noi ul { color: rgba(255,255,255,.85); }
+.vs-noi .vs-prezzo { color: #fff; }
+.vs-noi ul { border-top-color: rgba(255,255,255,.25); font-weight: 600; color: #fff; }
+@media (max-width: 380px) { .vs { grid-template-columns: 1fr; } }
 .fonte { font-size: 13px; color: var(--tenue); margin-top: 10px; }
 .piani { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch; }
 .piano { display: flex; flex-direction: column; padding: 28px; }
@@ -258,15 +260,21 @@ h2 { font-size: clamp(30px, 3.6vw, 42px); line-height: 1.1; letter-spacing: -0.0
         </div>
         <div class="confronto" aria-label="Confronto dei prezzi">
           <h3>Il confronto</h3>
-          <table class="tab-confronto">
-            <thead><tr><th scope="col"><span class="vh">Voce</span></th><th scope="col">Altri servizi</th><th scope="col" class="noi">MyTaxTrading</th></tr></thead>
-            <tbody>
-              <tr><th scope="row">Prezzo</th><td>da 49&nbsp;€ a oltre 300&nbsp;€</td><td class="noi">29&nbsp;€</td></tr>
-              <tr><th scope="row">Capitale alto o tante operazioni</th><td>costa di più</td><td class="noi">stesso prezzo</td></tr>
-              <tr><th scope="row">Tempi</th><td>giorni o settimane</td><td class="noi">pochi secondi</td></tr>
-            </tbody>
-          </table>
-          <p class="fonte">Prezzo MyTaxTrading per un broker. Altri servizi: listini pubblici dei servizi italiani di elaborazione per trader, novembre 2026.</p>
+          <div class="vs">
+            <div class="vs-col">
+              <p class="vs-chi">Altri servizi</p>
+              <p class="vs-prezzo">da 49 €</p>
+              <p class="vs-sotto">fino a oltre 300 €</p>
+              <ul><li>Costa di più con un capitale alto o tante operazioni</li><li>Consegna in giorni o settimane</li></ul>
+            </div>
+            <div class="vs-col vs-noi">
+              <p class="vs-chi">MyTaxTrading</p>
+              <p class="vs-prezzo">29 €</p>
+              <p class="vs-sotto">prezzo fisso</p>
+              <ul><li>Stesso prezzo qualunque sia il capitale</li><li>Quadri pronti in pochi secondi</li></ul>
+            </div>
+          </div>
+          <p class="fonte">MyTaxTrading: piano per un broker. Altri servizi: listini pubblici dei servizi italiani di elaborazione per trader, novembre 2026.</p>
         </div>
       </div>
     </section>
