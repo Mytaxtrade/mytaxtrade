@@ -97,6 +97,7 @@ p { margin: 0; }
 .tab-confronto .noi { color: var(--azione); font-weight: 700; }
 .tab-confronto thead .noi { color: var(--azione); }
 .tab-confronto tbody tr:last-child th, .tab-confronto tbody tr:last-child td { border-bottom: 0; }
+@media (max-width: 640px) { .tab-confronto { font-size: 14px; } .tab-confronto th, .tab-confronto td { padding: 10px 6px; } .tab-confronto tbody th { width: 34%; } }
 .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 .fonte { font-size: 13px; color: var(--tenue); margin-top: 10px; }
 .piani { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch; }
@@ -260,8 +261,8 @@ h2 { font-size: clamp(30px, 3.6vw, 42px); line-height: 1.1; letter-spacing: -0.0
           <table class="tab-confronto">
             <thead><tr><th scope="col"><span class="vh">Voce</span></th><th scope="col">Altri servizi</th><th scope="col" class="noi">MyTaxTrading</th></tr></thead>
             <tbody>
-              <tr><th scope="row">Prezzo</th><td>da 49 € a oltre 300 €</td><td class="noi">29 €</td></tr>
-              <tr><th scope="row">Con un capitale alto o tante operazioni</th><td>costa di più</td><td class="noi">stesso prezzo</td></tr>
+              <tr><th scope="row">Prezzo</th><td>da 49&nbsp;€ a oltre 300&nbsp;€</td><td class="noi">29&nbsp;€</td></tr>
+              <tr><th scope="row">Capitale alto o tante operazioni</th><td>costa di più</td><td class="noi">stesso prezzo</td></tr>
               <tr><th scope="row">Tempi</th><td>giorni o settimane</td><td class="noi">pochi secondi</td></tr>
             </tbody>
           </table>
