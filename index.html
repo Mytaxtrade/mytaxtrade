@@ -183,14 +183,14 @@ h2 { font-size: clamp(30px, 3.6vw, 42px); line-height: 1.1; letter-spacing: -0.0
 .confronto { background: var(--carta); border: 2px solid var(--inchiostro); border-radius: 4px; }
 .sezione-avvisami { background: var(--fondo-2); border-top: 1px solid var(--bordo); }
 .avvisami-griglia { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
-.avvisami-griglia h2 { margin-top: 0; }
+.avvisami-griglia h2 { margin: 0 0 12px; }
 .avvisami-griglia p { color: var(--tenue); }
 .avvisami-modulo { display: grid; gap: 14px; background: #fff; border: 1px solid var(--bordo); border-radius: var(--r); padding: 22px; }
 .avvisami-modulo label { display: grid; gap: 6px; font-size: 14px; font-weight: 600; color: var(--inchiostro); }
 .avvisami-modulo input[type=email], .avvisami-modulo select { font: inherit; font-weight: 400; padding: 11px 12px; border: 1px solid var(--bordo-forte); border-radius: 6px; background: #fff; color: var(--inchiostro); }
 .avvisami-modulo .spunta { display: flex; gap: 10px; align-items: flex-start; font-weight: 500; }
 .avvisami-modulo .spunta input { margin-top: 3px; }
-.avvisami-esito { margin: 0; font-weight: 600; color: var(--azione); min-height: 1.2em; }
+.avvisami-modulo .avvisami-esito { margin: 0; font-weight: 600; color: var(--azione); min-height: 1.2em; }
 @media (max-width: 760px) { .avvisami-griglia { grid-template-columns: 1fr; gap: 20px; } }
 .sezione-strumenti { border-top: 1px solid var(--bordo); }
 .strumenti-griglia { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
