@@ -1,0 +1,22 @@
+name: Cambi BCE
+# Ogni giorno feriale, dopo la pubblicazione dei cambi BCE (16:00 ora di Francoforte), aggiorna dati/cambi-bce.json
+on:
+  schedule:
+    - cron: "37 16 * * 1-5"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  aggiorna:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - run: python3 .github/aggiorna_cambi.py dati/cambi-bce.json
+      - name: Salva se cambiato
+        run: |
+          if git diff --quiet dati/cambi-bce.json; then echo "Nessun cambio nuovo"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dati/cambi-bce.json
+          git commit -m "Cambi BCE aggiornati"
+          git push
