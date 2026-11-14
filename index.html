@@ -363,12 +363,6 @@ h2 { font-size: clamp(30px, 3.6vw, 42px); line-height: 1.1; letter-spacing: -0.0
       <nav><a href="guide.html">Tutte le guide</a><a href="come-scaricare-i-report.html">Guida ai report</a><a href="amministrato-o-dichiarativo.html">Amministrato o dichiarativo</a><a href="come-dichiarare-interactive-brokers.html">Dichiarare Interactive Brokers</a><a href="come-dichiarare-degiro.html">Dichiarare DEGIRO</a><a href="come-dichiarare-fineco.html">Fineco e dichiarazione</a><a href="come-dichiarare-etoro.html">Dichiarare eToro</a><a href="quadro-rw.html">Quadro RW</a><a href="calcolatore-ivafe.html">Calcolatore IVAFE</a><a href="cambio-bce.html">Cambio BCE</a><a href="chi-siamo.html">Chi siamo</a><a href="privacy.html">Privacy</a><a href="termini.html">Termini</a><a href="contatti.html">Contatti</a></nav>
     </div>
   </footer>
-<script>
-  document.getElementById("avvisami-modulo").addEventListener("submit", function () {
-    if (!this.reportValidity()) return;
-    document.getElementById("avvisami-esito").textContent = "Fatto! Controlla la tua email e conferma l'iscrizione con il link che ti abbiamo mandato.";
-    this.reset();
-  });
-</script>
+<script src="avvisami.js" defer></script>
 </body>
 </html>
