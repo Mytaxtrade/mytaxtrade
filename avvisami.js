@@ -53,7 +53,7 @@
       if (!form.reportValidity()) return;
       var ok = function () {
         scrivi("mtt_iscritto", String(Date.now()));
-        esito.textContent = "Fatto! Ti scriveremo quando è il momento. Ogni email contiene le istruzioni per cancellarti.";
+        esito.textContent = "Fatto! Ti scriveremo prima delle scadenze. Ogni email contiene le istruzioni per cancellarti.";
         form.reset();
         var b = document.querySelector(".mtt-barra"); if (b) b.remove();
       };
@@ -69,8 +69,8 @@
 
   // 1. striscia stagionale in alto
   var m = new Date().getMonth() + 1, testo, link, etichetta, chiave;
-  if (m >= 11 || m === 1) { testo = "La dichiarazione è ancora lontana? Ti avvisiamo noi quando è il momento."; etichetta = "Avvisami"; link = "#avvisami-apri"; chiave = "inverno"; }
-  else if (m <= 6) { testo = "I rendiconti annuali dei broker sono disponibili: prepara i quadri in pochi secondi."; etichetta = "Scegli il piano"; link = home ? "#prezzi" : "index.html#prezzi"; chiave = "stagione"; }
+  if (m >= 11 || m === 1) { testo = "Non perdere le scadenze della dichiarazione: ti avvisiamo noi."; etichetta = "Avvisami"; link = "#avvisami-apri"; chiave = "inverno"; }
+  else if (m <= 6) { testo = "È il momento di preparare la dichiarazione: i tuoi quadri RT e RW in pochi secondi."; etichetta = "Scegli il piano"; link = home ? "#prezzi" : "index.html#prezzi"; chiave = "stagione"; }
   else { testo = "Ultime settimane per il modello Redditi: i tuoi quadri in pochi secondi."; etichetta = "Scegli il piano"; link = home ? "#prezzi" : "index.html#prezzi"; chiave = "redditi"; }
   var kStr = "mtt_striscia_" + chiave + "_" + new Date().getFullYear();
   if (!leggi(kStr) && !(chiave === "inverno" && iscritto())) {
@@ -92,8 +92,8 @@
     var v = document.createElement("div");
     v.className = "mtt-velo";
     v.innerHTML = '<div class="mtt-finestra" role="dialog" aria-modal="true" aria-labelledby="mtt-titolo">' +
-      '<button class="mtt-x" aria-label="Chiudi">×</button><h2 id="mtt-titolo">Ti avvisiamo quando è il momento</h2>' +
-      '<p>Ti scriviamo quando i report del tuo broker sono pronti e prima delle scadenze della dichiarazione. Poche email all\'anno, ti cancelli con un clic.</p>' +
+      '<button class="mtt-x" aria-label="Chiudi">×</button><h2 id="mtt-titolo">Non perdere le scadenze</h2>' +
+      '<p>Ti ricordiamo le scadenze della dichiarazione e ti avvisiamo delle novità fiscali per chi investe, come nuove regole o nuovi broker. Poche email all\'anno, ti cancelli con un clic.</p>' +
       modulo() + '</div>';
     document.body.appendChild(v); aperta = v;
     collega(v.querySelector("form"));
@@ -125,7 +125,7 @@
       mostrata = true;
       var b = document.createElement("div");
       b.className = "mtt-barra"; b.setAttribute("role", "region"); b.setAttribute("aria-label", "Promemoria");
-      b.innerHTML = '<span>Ti avvisiamo quando è il momento della dichiarazione</span><button class="mtt-apri">Avvisami</button><button class="mtt-x" aria-label="Chiudi">×</button>';
+      b.innerHTML = '<span>Non perdere le scadenze della dichiarazione</span><button class="mtt-apri">Avvisami</button><button class="mtt-x" aria-label="Chiudi">×</button>';
       document.body.appendChild(b);
       b.querySelector(".mtt-apri").addEventListener("click", function () { b.remove(); apriFinestra(); });
       b.querySelector(".mtt-x").addEventListener("click", function () { scrivi("mtt_barra", String(Date.now())); b.remove(); });
@@ -137,7 +137,7 @@
   if (avv && !home) {
     var box = document.createElement("section");
     box.className = "mtt-box";
-    box.innerHTML = '<div><h2>Ti avvisiamo quando è il momento</h2><p>Un\'email quando i report del tuo broker sono pronti e prima delle scadenze della dichiarazione. Poche all\'anno, ti cancelli con un clic.</p></div>' + modulo();
+    box.innerHTML = '<div><h2>Non perdere le scadenze</h2><p>Ti ricordiamo le scadenze della dichiarazione e ti avvisiamo delle novità fiscali per chi investe. Poche email all\'anno, ti cancelli con un clic.</p></div>' + modulo();
     avv.parentNode.insertBefore(box, avv);
     collega(box.querySelector("form"));
   }
