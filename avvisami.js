@@ -2,8 +2,9 @@
    riquadro in fondo a guide e strumenti, moduli "Avvisami". Nessun cookie: solo localStorage per non ripetere. */
 (function () {
   "use strict";
-  // Indirizzo del modulo Brevo (da impostare quando l'account e' pronto). Vuoto = modalita' anteprima, non invia nulla.
-  var BREVO_URL = "";
+  // Google Modulo che raccoglie le iscrizioni (indirizzo .../formResponse e codici dei due campi).
+  // Vuoto = modalita' anteprima, non invia nulla.
+  var MODULO = { url: "", email: "", broker: "" };
   var PAGINE_ESCLUSE = /carica-report/;
   if (PAGINE_ESCLUSE.test(location.pathname)) return;
 
@@ -51,14 +52,15 @@
       if (!form.reportValidity()) return;
       var ok = function () {
         scrivi("mtt_iscritto", String(Date.now()));
-        esito.textContent = "Fatto! Controlla la tua email e conferma l'iscrizione con il link che ti abbiamo mandato.";
+        esito.textContent = "Fatto! Ti scriveremo quando è il momento. Ogni email contiene le istruzioni per cancellarti.";
         form.reset();
         var b = document.querySelector(".mtt-barra"); if (b) b.remove();
       };
-      if (!BREVO_URL) { ok(); return; }             // anteprima: non invia nulla
-      var dati = new FormData(form);
-      dati.set("OPT_IN", "1");
-      fetch(BREVO_URL, { method: "POST", body: dati, mode: "no-cors" }).then(ok, function () {
+      if (!MODULO.url) { ok(); return; }            // anteprima: non invia nulla
+      var dati = new URLSearchParams();
+      dati.set(MODULO.email, form.EMAIL.value.trim());
+      if (MODULO.broker) dati.set(MODULO.broker, form.BROKER.value || "Non indicato");
+      fetch(MODULO.url, { method: "POST", body: dati, mode: "no-cors" }).then(ok, function () {
         esito.textContent = "Non è stato possibile completare l'iscrizione. Riprova tra qualche minuto.";
       });
     });
