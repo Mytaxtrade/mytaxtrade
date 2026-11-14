@@ -181,6 +181,13 @@ h2 { font-size: clamp(30px, 3.6vw, 42px); line-height: 1.1; letter-spacing: -0.0
 .broker { border: 1px solid var(--bordo); border-left: 4px solid var(--azione); border-radius: 4px; padding: 20px 22px; background: var(--fondo); }
 .altro-broker { background: var(--fondo-2); border: 1px dashed var(--bordo-forte); border-radius: 6px; }
 .confronto { background: var(--carta); border: 2px solid var(--inchiostro); border-radius: 4px; }
+.sezione-strumenti { border-top: 1px solid var(--bordo); }
+.strumenti-griglia { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; max-width: 880px; margin: 0 auto; }
+.strumento-card { display: block; border: 1px solid var(--bordo); border-radius: var(--r); padding: 22px 22px 20px; background: #fff; color: var(--inchiostro); text-decoration: none; }
+.strumento-card:hover, .strumento-card:focus-visible { border-color: var(--azione); }
+.strumento-card h3 { margin: 0 0 6px; }
+.strumento-card p { margin: 0 0 14px; color: var(--tenue); }
+.strumento-card span { font-weight: 700; color: var(--azione); }
 .sezione-prezzi { background: var(--fondo-2); border-top: 1px solid var(--bordo); }
 .piano { background: var(--carta); border: 1px solid var(--bordo); border-radius: 6px; }
 .piano.consigliato { border: 2px solid var(--azione); box-shadow: 8px 8px 0 var(--bordo-forte); }
@@ -197,11 +204,11 @@ h2 { font-size: clamp(30px, 3.6vw, 42px); line-height: 1.1; letter-spacing: -0.0
       <a href="index.html" class="logo" aria-label="MyTaxTrading, homepage"><span class="logo-segno" aria-hidden="true"><i></i><i></i><i></i></span><span>MyTax<b>Trading</b></span></a>
       <details class="menu-mobile"><summary aria-label="Apri il menu"><span></span><span></span><span></span></summary>
         <nav class="menu-voci"><a href="#come-funziona">Come funziona</a><a href="#prezzi">Prezzi</a>
-        <a href="guide.html">Guide</a>
+        <a href="guide.html">Guide</a><a href="#strumenti">Strumenti</a>
         <a href="#faq">Domande</a><a href="contatti.html">Contatti</a>
         <a class="btn btn-nav" href="#prezzi">Scegli il piano</a></nav></details>
       <nav class="menu-desktop"><a href="#come-funziona">Come funziona</a><a href="#prezzi">Prezzi</a>
-        <a href="guide.html">Guide</a>
+        <a href="guide.html">Guide</a><a href="#strumenti">Strumenti</a>
         <a href="#faq">Domande</a><a href="contatti.html">Contatti</a>
         <a class="btn btn-nav" href="#prezzi">Scegli il piano</a></nav>
     </div>
@@ -293,6 +300,16 @@ h2 { font-size: clamp(30px, 3.6vw, 42px); line-height: 1.1; letter-spacing: -0.0
       </div>
     </section>
 
+    <section id="strumenti" class="sezione sezione-strumenti">
+      <div class="wrap">
+        <div class="titolo"><h2>Strumenti gratuiti</h2><p>Due calcoli che servono a chi ha un broker estero, gratis e senza registrazione.</p></div>
+        <div class="strumenti-griglia">
+          <a class="strumento-card" href="calcolatore-ivafe.html"><h3>Calcolatore IVAFE</h3><p>Quanto paghi di imposta sul valore del conto del broker estero, con giorni di possesso e quota.</p><span>Calcola l'IVAFE</span></a>
+          <a class="strumento-card" href="cambio-bce.html"><h3>Cambio BCE per data</h3><p>Converti in euro dollari, sterline e altre valute al cambio ufficiale del giorno dell'operazione.</p><span>Converti un importo</span></a>
+        </div>
+      </div>
+    </section>
+
     <section id="faq" class="sezione">
       <div class="wrap stretto">
         <div class="titolo"><h2>Domande frequenti</h2></div>
@@ -313,7 +330,7 @@ h2 { font-size: clamp(30px, 3.6vw, 42px); line-height: 1.1; letter-spacing: -0.0
   <footer class="piede">
     <div class="wrap piede-griglia">
       <p>© 2026 MyTaxTrading.com, servizio di elaborazione dati fiscali</p>
-      <nav><a href="guide.html">Tutte le guide</a><a href="come-scaricare-i-report.html">Guida ai report</a><a href="amministrato-o-dichiarativo.html">Amministrato o dichiarativo</a><a href="come-dichiarare-interactive-brokers.html">Dichiarare Interactive Brokers</a><a href="come-dichiarare-degiro.html">Dichiarare DEGIRO</a><a href="come-dichiarare-fineco.html">Fineco e dichiarazione</a><a href="come-dichiarare-etoro.html">Dichiarare eToro</a><a href="quadro-rw.html">Quadro RW</a><a href="chi-siamo.html">Chi siamo</a><a href="privacy.html">Privacy</a><a href="termini.html">Termini</a><a href="contatti.html">Contatti</a></nav>
+      <nav><a href="guide.html">Tutte le guide</a><a href="come-scaricare-i-report.html">Guida ai report</a><a href="amministrato-o-dichiarativo.html">Amministrato o dichiarativo</a><a href="come-dichiarare-interactive-brokers.html">Dichiarare Interactive Brokers</a><a href="come-dichiarare-degiro.html">Dichiarare DEGIRO</a><a href="come-dichiarare-fineco.html">Fineco e dichiarazione</a><a href="come-dichiarare-etoro.html">Dichiarare eToro</a><a href="quadro-rw.html">Quadro RW</a><a href="calcolatore-ivafe.html">Calcolatore IVAFE</a><a href="cambio-bce.html">Cambio BCE</a><a href="chi-siamo.html">Chi siamo</a><a href="privacy.html">Privacy</a><a href="termini.html">Termini</a><a href="contatti.html">Contatti</a></nav>
     </div>
   </footer>
 </body>
