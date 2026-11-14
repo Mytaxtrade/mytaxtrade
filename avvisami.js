@@ -4,7 +4,8 @@
   "use strict";
   // Google Modulo che raccoglie le iscrizioni (indirizzo .../formResponse e codici dei due campi).
   // Vuoto = modalita' anteprima, non invia nulla.
-  var MODULO = { url: "", email: "", broker: "" };
+  var MODULO = { url: "https://docs.google.com/forms/d/e/1FAIpQLSefA4oSVYJHnczJeGz2bfGv9kxRlA_rWg6hQXWD9nrfinmhiA/formResponse",
+                 email: "entry.434107218", broker: "entry.1023987758" };
   var PAGINE_ESCLUSE = /carica-report/;
   if (PAGINE_ESCLUSE.test(location.pathname)) return;
 
